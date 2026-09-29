@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<!-- saved from url=(0085)file:///C:/Users/rowie.juntilla_strat/Downloads/Delivery_Excellence_Report_Sep23.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Delivery Excellence Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --green-700:#1b4332;
+    --green-600:#2d6a4f;
+    --green-500:#3f8863;
+    --sage-400:#74a57f;
+    --sage-300:#9dc3a7;
+    --sage-200:#c3dbc9;
+    --mist-100:#eef4ef;
+    --paper:#f7f7f3;
+    --amber:#c98a2b;
+    --amber-soft:#e3b976;
+    --red:#b23a48;
+    --red-soft:#d98d97;
+    --rust:#a8562e;
+    --rust-soft:#d3a382;
+    --ink:#0a0a0a;
+    --ink-soft:#3a3a3a;
+    --line:rgba(0,0,0,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .app{ max-width:1240px; margin:0 auto; padding:36px 28px 80px; }
+
+  header.top{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
+    padding-bottom:22px; margin-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .brand-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--green-600); margin:0 0 10px;
+  }
+  h1.title{
+    font-family:'Fraunces', serif; font-weight:500; font-size:clamp(28px, 4vw, 40px);
+    line-height:1.05; margin:0; color:var(--ink); letter-spacing:-0.01em;
+  }
+  .period{ text-align:right; font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft); line-height:1.6; }
+  .period b{ color:var(--ink); }
+
+  .canopy{ display:flex; align-items:flex-end; gap:3px; height:14px; margin:18px 0 30px; }
+  .canopy span{ display:block; width:100%; border-radius:2px 2px 0 0; background:var(--sage-400); opacity:.6; }
+
+  nav.tabs{ display:flex; gap:6px; margin-bottom:30px; flex-wrap:wrap; }
+  nav.tabs button{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:.05em; text-transform:uppercase;
+    background:transparent; border:1px solid var(--line); color:var(--ink-soft);
+    padding:10px 18px; border-radius:100px; cursor:pointer; transition:all .18s ease;
+  }
+  nav.tabs button.active{ background:var(--green-700); border-color:var(--green-700); color:#fff; }
+  nav.tabs button:not(.active):hover{ border-color:var(--green-500); color:var(--ink); }
+
+  .page{ display:none; }
+  .page.active{ display:block; animation:fade .35s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  .page-title{ font-family:'Fraunces', serif; font-size:22px; font-weight:500; color:var(--ink); margin:0 0 4px; }
+  .page-sub{ font-size:13.5px; color:var(--ink-soft); margin:0 0 26px; }
+
+  .grid-two{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:22px; }
+  @media(max-width:860px){ .grid-two{ grid-template-columns:1fr; } }
+
+  .card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 26px 22px; }
+  .card-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green-600); margin:0 0 6px; }
+  .card-title{ font-family:'Fraunces', serif; font-size:19px; color:var(--ink); margin:0 0 18px; font-weight:500; }
+
+  .stat-row{ display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  .donut-wrap{ position:relative; flex-shrink:0; }
+  .donut-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-center .num{ font-family:'IBM Plex Mono', monospace; font-size:24px; font-weight:700; color:var(--ink); }
+  .donut-center .lbl{ font-size:9.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.08em; }
+
+  .legend{ display:flex; flex-direction:column; gap:12px; flex:1; min-width:210px; }
+  .legend-item{ display:flex; align-items:center; gap:10px; }
+  .swatch{ width:11px; height:11px; border-radius:3px; flex-shrink:0; }
+  .legend-text{ flex:1; }
+  .legend-name{ font-size:13px; color:var(--ink); font-weight:600; }
+  .legend-sub{ font-size:11px; color:var(--ink-soft); }
+  .legend-val{ font-family:'IBM Plex Mono', monospace; font-size:14.5px; font-weight:700; color:var(--ink); text-align:right; min-width:60px; }
+  .legend-pct{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); text-align:right; min-width:60px; display:block; }
+
+  .rag-strip{ display:flex; height:34px; border-radius:8px; overflow:hidden; margin-bottom:18px; }
+  .rag-seg{ display:flex; align-items:center; justify-content:center; color:#fff; font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:700; }
+  .rag-legend{ display:flex; gap:26px; flex-wrap:wrap; }
+  .rag-legend .legend-item{ min-width:150px; }
+
+  .bu-grid{ display:grid; grid-template-columns:repeat(5, 1fr); gap:16px; }
+  @media(max-width:1000px){ .bu-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:640px){ .bu-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .bu-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 14px; text-align:center; }
+  .bu-card .bu-name{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink); font-weight:700; margin-top:0; margin-bottom:12px; min-height:26px; }
+  .bu-total{ font-size:10.5px; color:var(--ink-soft); margin-top:12px; }
+  .bu-legend{ display:flex; justify-content:center; gap:10px; margin-top:12px; flex-wrap:wrap; }
+  .bu-legend span{ font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--ink-soft); display:flex; align-items:center; gap:5px; }
+  .bu-legend .swatch{ width:8px; height:8px; border-radius:2px; }
+
+  .bu-section{ margin-bottom:22px; }
+  .bu-section:last-child{ margin-bottom:0; }
+  .bu-section-head{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .bu-section-head .bu-tag-lg{ font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:700; color:var(--ink); text-transform:uppercase; letter-spacing:.04em; }
+  .bu-section-head .count-badge{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:#fff; background:var(--red); padding:3px 10px; border-radius:100px; }
+
+  .red-list{ display:flex; flex-direction:column; gap:0; }
+  .red-row{ display:grid; grid-template-columns:1.6fr 2.6fr; gap:20px; padding:14px 4px; border-bottom:1px solid var(--line); align-items:start; }
+  .red-row:last-child{ border-bottom:none; }
+  .red-project{ font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.4; }
+  .red-pm{ font-size:11px; color:var(--ink-soft); margin-top:2px; font-family:'IBM Plex Mono', monospace; }
+  .red-plan{ font-size:12.5px; color:var(--ink-soft); line-height:1.55; }
+  @media(max-width:760px){ .red-row{ grid-template-columns:1fr; gap:6px; } }
+
+  .rag-tag{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10px; font-weight:700; padding:3px 9px; border-radius:100px; text-transform:uppercase; letter-spacing:.04em; color:#fff; }
+  .rag-tag.RED{ background:var(--red); }
+  .rag-tag.AMBER{ background:var(--amber); }
+  .bu-chip{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:3px 9px; border-radius:100px; background:var(--mist-100); color:var(--ink); border:1px solid var(--line); white-space:nowrap; }
+
+  .trend-chip{ display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:100px; white-space:nowrap; }
+  .trend-chip.UP{ background:#dff0e4; color:var(--green-700); }
+  .trend-chip.DOWN{ background:#f6dde0; color:var(--red); }
+  .trend-chip.FLAT{ background:var(--mist-100); color:var(--ink-soft); }
+  .trend-chip.NEW{ background:#eee; color:var(--ink-soft); }
+  .trend-arrow{ font-size:12px; line-height:1; }
+
+  .gtg-section{ margin-bottom:26px; }
+  .gtg-section-title{ font-family:'Fraunces', serif; font-size:17px; color:var(--ink); margin:0 0 4px; font-weight:500; }
+  .gtg-section-sub{ font-size:12.5px; color:var(--ink-soft); margin:0 0 14px; }
+  .gtg-row{ display:grid; grid-template-columns:1.6fr 0.85fr 0.55fr 0.85fr 2.1fr; gap:14px; padding:14px 4px; border-bottom:1px solid var(--line); align-items:start; }
+  .gtg-row.head{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); padding-bottom:10px; }
+  .gtg-row:not(.head):hover{ background:var(--mist-100); }
+  .gtg-project{ font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.4; }
+  .gtg-plan{ font-size:12.5px; color:var(--ink-soft); line-height:1.55; }
+  @media(max-width:900px){ .gtg-row{ grid-template-columns:1fr; gap:6px; padding:16px 4px; } .gtg-row.head{ display:none; } }
+
+  .legend-note{ display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+  .legend-note .trend-chip{ font-size:10px; }
+
+  /* ---- Side-by-side comparison ---- */
+  .compare-wrap{ display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:stretch; }
+  @media(max-width:760px){ .compare-wrap{ grid-template-columns:1fr; } .compare-arrow{ display:none; } }
+  .compare-col{ border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .compare-col.prev{ background:var(--mist-100); }
+  .compare-col.curr{ background:#fff; }
+  .compare-col-label{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 14px; }
+  .compare-arrow{ display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--sage-400); }
+  .compare-row{ display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); }
+  .compare-row:last-child{ border-bottom:none; }
+  .compare-row .clabel{ display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:600; }
+  .compare-row .cval{ font-family:'IBM Plex Mono', monospace; font-size:13.5px; font-weight:700; }
+  .compare-row .cpct{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); margin-left:6px; }
+
+  .delta-table{ width:100%; border-collapse:collapse; margin-top:6px; }
+  .delta-table th{ font-family:'IBM Plex Mono', monospace; font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); text-align:right; padding:8px 6px; border-bottom:1px solid var(--line); }
+  .delta-table th:first-child{ text-align:left; }
+  .delta-table td{ padding:10px 6px; border-bottom:1px solid var(--line); font-size:13px; text-align:right; }
+  .delta-table td:first-child{ text-align:left; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .delta-table tr:last-child td{ border-bottom:none; }
+  .delta-val{ font-family:'IBM Plex Mono', monospace; font-weight:700; }
+  .delta-val.pos{ color:var(--green-700); }
+  .delta-val.neg{ color:var(--red); }
+  .delta-val.zero{ color:var(--ink-soft); }
+
+  footer.foot{ margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-size:11px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div>
+      <p class="brand-eyebrow">Stratpoint · Delivery Excellence</p>
+      <h1 class="title">Delivery Excellence Report</h1>
+    </div>
+    <div class="period">Reporting window<br><b>Week of Sep 14–18, 2026</b><br>vs. Sep 11, 2026 snapshot</div>
+  </header>
+
+  <div class="canopy" id="canopy"><span style="height: 4px;"></span><span style="height: 7px;"></span><span style="height: 10px;"></span><span style="height: 6px;"></span><span style="height: 14px;"></span><span style="height: 8px;"></span><span style="height: 5px;"></span><span style="height: 11px;"></span><span style="height: 7px;"></span><span style="height: 4px;"></span><span style="height: 9px;"></span><span style="height: 6px;"></span><span style="height: 13px;"></span><span style="height: 5px;"></span><span style="height: 8px;"></span><span style="height: 10px;"></span><span style="height: 4px;"></span><span style="height: 7px;"></span></div>
+
+  <nav class="tabs">
+    <button class="active" data-page="p1">01 — Status &amp; RAG vs. Sep 11</button>
+    <button data-page="p2">02 — RAG by Business Unit</button>
+    <button data-page="p3">03 — Red &amp; Amber Get to Green</button>
+  </nav>
+
+  <!-- ============ PAGE 1 ============ -->
+  <section class="page active" id="p1">
+    <p class="page-title">Engagement Status &amp; RAG — Sep 23 vs. Sep 11</p>
+    <p class="page-sub">94 active engagements this period (down from 95 on Sep 11). Active vs. Active–BED and overall RAG health, each shown side by side against the Sep 11 snapshot, with Red split by root cause.</p>
+
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Engagement Type</p>
+      <p class="card-title">Active vs. Active – Beyond End Date (BED)</p>
+      <div class="compare-wrap">
+        <div class="compare-col prev">
+          <p class="compare-col-label">Sep 11, 2026 · 95 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--sage-300)"></span>Active</span><span><span class="cval">71</span><span class="cpct">74.7%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--sage-400)"></span>Active – BED</span><span><span class="cval">24</span><span class="cpct">25.3%</span></span></div>
+        </div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-col curr">
+          <p class="compare-col-label">Sep 23, 2026 · 94 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--green-600)"></span>Active</span><span><span class="cval">81</span><span class="cpct">86.2%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--sage-400)"></span>Active – BED</span><span><span class="cval">13</span><span class="cpct">13.8%</span></span></div>
+        </div>
+      </div>
+      <table class="delta-table">
+        <tbody><tr><th>Change</th><th>Count</th><th>Percentage points</th></tr>
+        <tr><td><span class="swatch" style="background:var(--green-600)"></span>Active</td><td><span class="delta-val pos">+10</span></td><td><span class="delta-val pos">+11.5 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--sage-400)"></span>Active – BED</td><td><span class="delta-val pos">−11</span></td><td><span class="delta-val pos">−11.5 pp</span></td></tr>
+      </tbody></table>
+      <p class="page-sub" style="margin:14px 0 0;">A notable swing back toward on-schedule delivery — the share of engagements running past their contracted end date dropped from 25.3% to 13.8%, the best BED position in the last three snapshots.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Portfolio Health</p>
+      <p class="card-title">Green / Amber / Red — Red split by root cause</p>
+      <div class="stat-row">
+        <div class="donut-wrap">
+          <svg id="donutRag" width="168" height="168" viewBox="0 0 168 168"><circle cx="84" cy="84" r="73" fill="none" stroke="#e9e9e2" stroke-width="22"></circle><circle cx="84" cy="84" r="73" fill="none" stroke="#2d6a4f" stroke-width="22" stroke-dasharray="346.4441430543808 112.22838436972899" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 84 84)"></circle><circle cx="84" cy="84" r="73" fill="none" stroke="#c98a2b" stroke-width="22" stroke-dasharray="73.19242458895368 385.4801028351561" stroke-dashoffset="-346.4441430543808" stroke-linecap="butt" transform="rotate(-90 84 84)"></circle><circle cx="84" cy="84" r="73" fill="none" stroke="#b23a48" stroke-width="22" stroke-dasharray="24.397474862984563 434.2750525611252" stroke-dashoffset="-419.6365676433345" stroke-linecap="butt" transform="rotate(-90 84 84)"></circle><circle cx="84" cy="84" r="73" fill="none" stroke="#a8562e" stroke-width="22" stroke-dasharray="14.638484917790736 444.03404250631905" stroke-dashoffset="-444.03404250631905" stroke-linecap="butt" transform="rotate(-90 84 84)"></circle></svg>
+          <div class="donut-center"><span class="num" id="donutRagTotal">94</span><span class="lbl">Total</span></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="swatch" style="background:var(--green-600)"></span><div class="legend-text"><div class="legend-name">Green</div></div><div><span class="legend-val">71</span><span class="legend-pct">75.5%</span></div></div>
+          <div class="legend-item"><span class="swatch" style="background:var(--amber)"></span><div class="legend-text"><div class="legend-name">Amber</div></div><div><span class="legend-val">15</span><span class="legend-pct">16.0%</span></div></div>
+          <div class="legend-item"><span class="swatch" style="background:var(--red)"></span><div class="legend-text"><div class="legend-name">Red — Delivery Concerns</div></div><div><span class="legend-val">5</span><span class="legend-pct">5.3%</span></div></div>
+          <div class="legend-item"><span class="swatch" style="background:var(--rust)"></span><div class="legend-text"><div class="legend-name">Red — Financial Concerns</div></div><div><span class="legend-val">3</span><span class="legend-pct">3.2%</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-label">Sep 11 vs. Sep 23</p>
+      <p class="card-title">RAG Comparison — Side by Side</p>
+      <div class="compare-wrap">
+        <div class="compare-col prev">
+          <p class="compare-col-label">Sep 11, 2026 · 95 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--green-600)"></span>Green</span><span><span class="cval">66</span><span class="cpct">69.5%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--amber)"></span>Amber</span><span><span class="cval">16</span><span class="cpct">16.8%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--red)"></span>Red — Delivery</span><span><span class="cval">7</span><span class="cpct">7.4%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--rust)"></span>Red — Financial</span><span><span class="cval">6</span><span class="cpct">6.3%</span></span></div>
+        </div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-col curr">
+          <p class="compare-col-label">Sep 23, 2026 · 94 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--green-600)"></span>Green</span><span><span class="cval">71</span><span class="cpct">75.5%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--amber)"></span>Amber</span><span><span class="cval">15</span><span class="cpct">16.0%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--red)"></span>Red — Delivery</span><span><span class="cval">5</span><span class="cpct">5.3%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--rust)"></span>Red — Financial</span><span><span class="cval">3</span><span class="cpct">3.2%</span></span></div>
+        </div>
+      </div>
+      <table class="delta-table">
+        <tbody><tr><th>Change</th><th>Count</th><th>Percentage points</th></tr>
+        <tr><td><span class="swatch" style="background:var(--green-600)"></span>Green</td><td><span class="delta-val pos">+5</span></td><td><span class="delta-val pos">+6.0 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--amber)"></span>Amber</td><td><span class="delta-val pos">−1</span></td><td><span class="delta-val pos">−0.8 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--red)"></span>Red — Delivery</td><td><span class="delta-val pos">−2</span></td><td><span class="delta-val pos">−2.1 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--rust)"></span>Red — Financial</td><td><span class="delta-val pos">−3</span></td><td><span class="delta-val pos">−3.1 pp</span></td></tr>
+        <tr><td><b>Total Red</b></td><td><span class="delta-val pos">−5</span></td><td><span class="delta-val pos">−5.2 pp</span></td></tr>
+      </tbody></table>
+      <p class="page-sub" style="margin:14px 0 0;">Clean improvement across the board this period. Seven projects graduated to Green — Bellwether DevOps, BPI MS Data Clean Up, GCash SS Staff Aug (Jhericoh L), GCASH 5DE Staff Aug, the Amdocs Globe ITS Observability and Combined MA Portals financial cases, and the newly-flagged Payment Tribe 1 engagement all cleared their blockers in under two weeks. Two more (MPTC Core Systems Staff Aug, ReserveNow Enhancements 2025 v4) rolled off the tracker entirely as their engagements concluded. That gain is partly offset by three newly-flagged items — two legacy 2025-vintage Solaire/Globe EG contracts with overdue billing, and Cebu Pacific TCOE picking up delivery blockers — plus one Green project (Globe EG - Phil Life DR as a Service) that fully resolved and dropped off Red.</p>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 2 ============ -->
+  <section class="page" id="p2">
+    <p class="page-title">RAG Health by Business Unit</p>
+    <p class="page-sub">Red / Amber / Green split across the portfolio, broken down by business unit, with the Red projects listed under each unit.</p>
+
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Portfolio-wide</p>
+      <p class="card-title">Overall RAG Split — Sep 23</p>
+      <div class="rag-strip" id="ragStrip"><div class="rag-seg" style="width: 75.5319%; background: rgb(45, 106, 79);">71</div><div class="rag-seg" style="width: 15.9574%; background: rgb(201, 138, 43);">15</div><div class="rag-seg" style="width: 8.51064%; background: rgb(178, 58, 72);">8</div></div>
+      <div class="rag-legend">
+        <div class="legend-item"><span class="swatch" style="background:var(--green-600)"></span><div class="legend-text"><div class="legend-name">Green</div></div><div><span class="legend-val">71</span><span class="legend-pct">75.5%</span></div></div>
+        <div class="legend-item"><span class="swatch" style="background:var(--amber)"></span><div class="legend-text"><div class="legend-name">Amber</div></div><div><span class="legend-val">15</span><span class="legend-pct">16.0%</span></div></div>
+        <div class="legend-item"><span class="swatch" style="background:var(--red)"></span><div class="legend-text"><div class="legend-name">Red</div></div><div><span class="legend-val">8</span><span class="legend-pct">8.5%</span></div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">By Business Unit</p>
+      <p class="card-title">Red / Amber / Green Projects per Unit</p>
+      <div class="bu-grid" id="buGrid"><div class="bu-card"><div class="bu-name">Cloud</div><div style="position: relative; width: 104px; margin: 0px auto;"><svg width="104" height="104" viewBox="0 0 104 104" style="display: block;"><circle cx="52" cy="52" r="45" fill="none" stroke="#e9e9e2" stroke-width="14"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#2d6a4f" stroke-width="14" stroke-dasharray="212.05750411731105 70.68583470577033" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#c98a2b" stroke-width="14" stroke-dasharray="44.178646691106465 238.56469213197494" stroke-dashoffset="-212.05750411731105" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#b23a48" stroke-width="14" stroke-dasharray="26.507188014663882 256.2361508084175" stroke-dashoffset="-256.2361508084175" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle></svg><div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#0a0a0a">32</span></div></div><div class="bu-legend"><span><span class="swatch" style="background:#2d6a4f"></span>Green 24</span><span><span class="swatch" style="background:#c98a2b"></span>Amber 5</span><span><span class="swatch" style="background:#b23a48"></span>Red 3</span></div><div class="bu-total">34.0% of portfolio</div></div><div class="bu-card"><div class="bu-name">Software Services</div><div style="position: relative; width: 104px; margin: 0px auto;"><svg width="104" height="104" viewBox="0 0 104 104" style="display: block;"><circle cx="52" cy="52" r="45" fill="none" stroke="#e9e9e2" stroke-width="14"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#2d6a4f" stroke-width="14" stroke-dasharray="159.81145237826337 122.93188644481802" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#c98a2b" stroke-width="14" stroke-dasharray="86.0523205113726 196.69101831170877" stroke-dashoffset="-159.81145237826337" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#b23a48" stroke-width="14" stroke-dasharray="36.8795659334454 245.86377288963598" stroke-dashoffset="-245.86377288963598" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle></svg><div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#0a0a0a">23</span></div></div><div class="bu-legend"><span><span class="swatch" style="background:#2d6a4f"></span>Green 13</span><span><span class="swatch" style="background:#c98a2b"></span>Amber 7</span><span><span class="swatch" style="background:#b23a48"></span>Red 3</span></div><div class="bu-total">24.5% of portfolio</div></div><div class="bu-card"><div class="bu-name">Big Data</div><div style="position: relative; width: 104px; margin: 0px auto;"><svg width="104" height="104" viewBox="0 0 104 104" style="display: block;"><circle cx="52" cy="52" r="45" fill="none" stroke="#e9e9e2" stroke-width="14"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#2d6a4f" stroke-width="14" stroke-dasharray="242.35143327692688 40.391905546154504" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#c98a2b" stroke-width="14" stroke-dasharray="26.927937030769655 255.81540179231172" stroke-dashoffset="-242.35143327692688" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#b23a48" stroke-width="14" stroke-dasharray="13.463968515384828 269.2793703076966" stroke-dashoffset="-269.2793703076965" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle></svg><div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#0a0a0a">21</span></div></div><div class="bu-legend"><span><span class="swatch" style="background:#2d6a4f"></span>Green 18</span><span><span class="swatch" style="background:#c98a2b"></span>Amber 2</span><span><span class="swatch" style="background:#b23a48"></span>Red 1</span></div><div class="bu-total">22.3% of portfolio</div></div><div class="bu-card"><div class="bu-name">Labs</div><div style="position: relative; width: 104px; margin: 0px auto;"><svg width="104" height="104" viewBox="0 0 104 104" style="display: block;"><circle cx="52" cy="52" r="45" fill="none" stroke="#e9e9e2" stroke-width="14"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#2d6a4f" stroke-width="14" stroke-dasharray="254.46900494077326 28.274333882308127" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#b23a48" stroke-width="14" stroke-dasharray="28.27433388230814 254.46900494077323" stroke-dashoffset="-254.46900494077326" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle></svg><div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#0a0a0a">10</span></div></div><div class="bu-legend"><span><span class="swatch" style="background:#2d6a4f"></span>Green 9</span><span><span class="swatch" style="background:#b23a48"></span>Red 1</span></div><div class="bu-total">10.6% of portfolio</div></div><div class="bu-card"><div class="bu-name">Quality Assurance</div><div style="position: relative; width: 104px; margin: 0px auto;"><svg width="104" height="104" viewBox="0 0 104 104" style="display: block;"><circle cx="52" cy="52" r="45" fill="none" stroke="#e9e9e2" stroke-width="14"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#2d6a4f" stroke-width="14" stroke-dasharray="247.40042147019622 35.342917352885166" stroke-dashoffset="0" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle><circle cx="52" cy="52" r="45" fill="none" stroke="#c98a2b" stroke-width="14" stroke-dasharray="35.34291735288517 247.40042147019622" stroke-dashoffset="-247.40042147019622" stroke-linecap="butt" transform="rotate(-90 52 52)"></circle></svg><div style="position: absolute; inset: 0px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><span style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:#0a0a0a">8</span></div></div><div class="bu-legend"><span><span class="swatch" style="background:#2d6a4f"></span>Green 7</span><span><span class="swatch" style="background:#c98a2b"></span>Amber 1</span></div><div class="bu-total">8.5% of portfolio</div></div></div>
+    </div>
+
+    <div class="card">
+      <p class="card-label">Red · By Business Unit</p>
+      <p class="card-title">Red Projects Listed per Business Unit</p>
+      <div id="redByBu"><div class="bu-section"><div class="bu-section-head"><span class="bu-tag-lg">Software Services</span><span class="count-badge">3 Red</span></div><div class="red-list"><div class="red-row"><div><div class="red-project">MPTC App Rebuild/Hypermodernization</div><div class="red-pm">PM: Gonzalez, Lenin Sebastian G.</div></div><div class="red-plan">Xpass/WebApp scope dispute ongoing — MPTC requested a combined BRD Stratpoint hasn't committed to; SOW boundary unclear and MPTC missed 2 technical meetings. Requesting 3 more developers plus additional QA; targeting Interop BRD sign-off by Sep 21 and resolving the Xpass/WebApp scope boundary by Sep 28.</div></div><div class="red-row"><div><div class="red-project">Globe Handyman Project (EKS Deployment for Tower 2)</div><div class="red-pm">PM: Castro, Jenina G.</div></div><div class="red-plan">In EUT (end-user training); no funding decision yet on the Change Request needed to proceed.</div></div><div class="red-row"><div><div class="red-project">GCASH AMP</div><div class="red-pm">PM: Valdez, Christine F.</div></div><div class="red-plan">Launch slipped again — from Sep 16 to Sep 23 — on continued VAPT-fix delays; client has accepted Stratpoint support only through Sep 30 while KT continues.</div></div></div></div><div class="bu-section"><div class="bu-section-head"><span class="bu-tag-lg">Cloud</span><span class="count-badge">3 Red</span></div><div class="red-list"><div class="red-row"><div><div class="red-project">Solaire North Cloud Cruise Managed Services 2025</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div><div class="red-plan">Newly flagged — legacy 2025 contract has a 90-day overdue invoice from May 2026; discussing with client/Finance whether Jan–Feb dues can be folded into May billing.</div></div><div class="red-row"><div><div class="red-project">Globe EG - Cloud Cruise Service Multicloud 2025 - 2026</div><div class="red-pm">PM: Tagadtad, Jameson O.</div></div><div class="red-plan">Newly flagged — legacy contract closed operationally (new 2026-2027 engagement now active) but February billing remains unsettled, now 90+ days overdue; Finance collection process to be invoked.</div></div><div class="red-row"><div><div class="red-project">BoxCrush Renewal 2024 - 2025</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div><div class="red-plan">Collections pending for the July and August 2025 periods; email sent to client to reconcile payments made.</div></div></div></div><div class="bu-section"><div class="bu-section-head"><span class="bu-tag-lg">Labs</span><span class="count-badge">1 Red</span></div><div class="red-list"><div class="red-row"><div><div class="red-project">AWS ProServe - GCash Madtech - AI</div><div class="red-pm">PM: Arcenas, Carl Lourence A.</div></div><div class="red-plan">UAT and prod deployment setup delayed by access/setup blockers; GCash's October production freeze (Hiraya event) adds risk. Sonny has asked Prec/AWS to advance funding toward the $50K ARR target (13K consumed so far).</div></div></div></div><div class="bu-section"><div class="bu-section-head"><span class="bu-tag-lg">Big Data</span><span class="count-badge">1 Red</span></div><div class="red-list"><div class="red-row"><div><div class="red-project">AWS ProServ - GCash Madtech - Data</div><div class="red-pm">PM: Dominguez, Arnel V.</div></div><div class="red-plan">5 of 19 GCash DE test cases passed; remaining 4 open tickets targeted to close today. Still needs a UAT-freeze exemption for October to have a realistic shot at the $50K target.</div></div></div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 3 ============ -->
+  <section class="page" id="p3">
+    <p class="page-title">Red &amp; Amber Projects — Get to Green Plans</p>
+    <p class="page-sub">All 23 Red and Amber projects, grouped by root cause: Financial Concerns first (Red and Amber together, UD / Union Digital engagements listed consecutively), then Delivery Concerns. Trend shows movement vs. the Sep 11, 2026 snapshot.</p>
+
+    <div class="card gtg-section">
+      <p class="gtg-section-title">Financial Concerns — Red &amp; Amber</p>
+      <p class="gtg-section-sub">15 projects (3 Red, 12 Amber) — unresolved billing, PO, or ARR-related blockers. The 8 UD / Union Digital engagements are listed first since they share the same escalation path.</p>
+      <div id="financialList"><div class="gtg-row head"><span>Project</span><span>Business Unit</span><span>RAG</span><span>Trend</span><span>Get to Green Plan</span></div><div class="gtg-row">
+      <div><div class="gtg-project">UD Infosec - Tine Baradero</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Only January 2026 payment remains pending. ₱814K received Sep 14; another ~₱1.9M expected by week of Sep 30.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">UD- Constancio Labao (June-September)</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Pending Jun–Aug 2026 payments; engagement extension to October pending approval. ₱814K received Sep 14; ~₱1.9M more expected by Sep 30.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">UD- Lery Navarro (May - October)</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Upgraded from Red — pending May–Jul 2026 billing; ₱814K received Sep 14, ~₱1.9M more expected by Sep 30. Continued monitoring of reported attendance/responsiveness concerns.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">UD Infosec - Baradero (Feb-July)</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">March &amp; April paid Aug 28; Feb, May, Jun, Jul still pending. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Union Digital Staff Aug Renewal - Lery Navarro (NodeJS)</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Only February 2026 remains pending after March &amp; April were paid Aug 28. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Union Digital Staff Aug Renewal - Constancio Labao (Flutter)</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Upgraded from Red — Feb &amp; May 2026 pending after March &amp; April were paid Aug 28. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">UnionDigital Staff Aug - 1 Flutter Developer</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Upgraded from Red — Nov 2025–Feb 2026 payments (4 months) remain pending. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">UD - Data Engr - Jhoven Mercado</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Big Data</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip FLAT"><span class="trend-arrow">→</span>No change</span></div>
+      <div class="gtg-plan">March–May paid Aug 28; June &amp; July still pending, unchanged from last period. Resource exited Aug 28 with KT complete.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Solaire North Cloud Cruise Managed Services 2025</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip NEW"><span class="trend-arrow">•</span>New</span></div>
+      <div class="gtg-plan">Newly flagged — legacy 2025 contract has a 90-day overdue invoice from May 2026; discussing with client/Finance whether Jan–Feb dues can be folded into May billing.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Globe EG - Cloud Cruise Service Multicloud 2025 - 2026</div><div class="red-pm">PM: Tagadtad, Jameson O.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip NEW"><span class="trend-arrow">•</span>New</span></div>
+      <div class="gtg-plan">Newly flagged — legacy contract closed operationally (new 2026-2027 engagement now active) but February billing remains unsettled, now 90+ days overdue; Finance collection process to be invoked.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">BoxCrush Renewal 2024 - 2025</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip FLAT"><span class="trend-arrow">→</span>No change</span></div>
+      <div class="gtg-plan">Collections pending for the July and August 2025 periods; email sent to client to reconcile payments made.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">RRHI Cloud Managed Service 2026</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Upgraded from Red — no flagged delivery risks; Service Recovery Plan 18/19 items complete. Contract renewal conversations underway, client presentation expected Sep 23–25. Collections still pending for Jul–Aug.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Solaire Entertainment Cloud Cruise 2026</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Signed SOW received Sep 2, August COCA sent. April payment collection discussed with client/Finance/AM on Sep 15; awaiting a firm schedule.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Solaire North Cloud Cruise 2026</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Signed SOW received Sep 8, August COCA sent. Jan–Feb payment discussion held Sep 15, awaiting confirmation. CSAT came back 5/5 with a client commendation.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Universal Leaf Philippines Inc (ULPI) 2025</div><div class="red-pm">PM: Yabut, Daisiree A.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening</span></div>
+      <div class="gtg-plan">Primary CE resigned — replacement being coordinated. Client approved a further 3-month extension, but June billing is still pending and July/Aug invoices haven't been issued; extension PO still outstanding.</div>
+    </div></div>
+    </div>
+
+    <div class="card gtg-section" style="margin-bottom:0;">
+      <p class="gtg-section-title">Delivery Concerns — Red &amp; Amber</p>
+      <p class="gtg-section-sub">8 projects (5 Red, 3 Amber) — active execution, resourcing, or scope/timeline risk as the primary driver.</p>
+      <div id="deliveryList"><div class="gtg-row head"><span>Project</span><span>Business Unit</span><span>RAG</span><span>Trend</span><span>Get to Green Plan</span></div><div class="gtg-row">
+      <div><div class="gtg-project">MPTC App Rebuild/Hypermodernization</div><div class="red-pm">PM: Gonzalez, Lenin Sebastian G.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening</span></div>
+      <div class="gtg-plan">Xpass/WebApp scope dispute ongoing — MPTC requested a combined BRD Stratpoint hasn't committed to; SOW boundary unclear and MPTC missed 2 technical meetings. Requesting 3 more developers (pending BU Head approval) plus additional QA; targeting Interop BRD sign-off by Sep 21 and resolving the Xpass/WebApp scope boundary by Sep 28.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Globe Handyman Project (EKS Deployment for Tower 2)</div><div class="red-pm">PM: Castro, Jenina G.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening</span></div>
+      <div class="gtg-plan">In EUT (end-user training); no funding decision yet on the Change Request needed to proceed.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">AWS ProServe - GCash Madtech - AI</div><div class="red-pm">PM: Arcenas, Carl Lourence A.</div></div>
+      <div><span class="bu-chip">Labs</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening</span></div>
+      <div class="gtg-plan">UAT and prod deployment setup delayed by access/setup blockers; GCash's October production freeze (Hiraya event) adds risk — exemption being requested. Sonny has asked Prec/AWS to advance funding toward the $50K ARR target (13K consumed so far).</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">AWS ProServ - GCash Madtech - Data</div><div class="red-pm">PM: Dominguez, Arnel V.</div></div>
+      <div><span class="bu-chip">Big Data</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">5 of 19 GCash DE test cases passed; remaining 4 open tickets targeted to close today. Silver-to-gold data layer expected ready for the ML team by end of day/early next. Still needs a UAT-freeze exemption for October to have a realistic shot at the $50K target.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">GCASH AMP</div><div class="red-pm">PM: Valdez, Christine F.</div></div>
+      <div><span class="bu-chip">Software Services</span></div>
+      <div><span class="rag-tag RED">RED</span></div>
+      <div><span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening</span></div>
+      <div class="gtg-plan">Launch slipped again — from Sep 16 to Sep 23 — on continued VAPT-fix delays; client has accepted Stratpoint support only through Sep 30 while KT continues.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">SBC SB Apps - CDM Data Staff Aug</div><div class="red-pm">PM: David, Dianne A.</div></div>
+      <div><span class="bu-chip">Big Data</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving</span></div>
+      <div class="gtg-plan">Diane's split time between CDM and JIT continues to cause friction; SBC deployed a TDM for JIT (week of Sep 14, 2 weeks) to relieve the conflict, and Haji is transitioning coverage to JC.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Rustan Cloud Cruise Service 2026-2027</div><div class="red-pm">PM: Tagadtad, Jameson O.</div></div>
+      <div><span class="bu-chip">Cloud</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip FLAT"><span class="trend-arrow">→</span>No change</span></div>
+      <div class="gtg-plan">Bastion host still exposed to the public internet and vulnerable to brute-force attempts; client informed, decision on decommissioning pending. No SLA breaches or escalations in 3 months; no outstanding payments.</div>
+    </div><div class="gtg-row">
+      <div><div class="gtg-project">Cebu Pacific TCOE (FY25-FY26)</div><div class="red-pm">PM: Madarang, Paul Richard C.</div></div>
+      <div><span class="bu-chip">Quality Assurance</span></div>
+      <div><span class="rag-tag AMBER">AMBER</span></div>
+      <div><span class="trend-chip NEW"><span class="trend-arrow">•</span>New</span></div>
+      <div class="gtg-plan">Newly flagged — missing raw test data for SPSE WS1, reopened bugs delaying SPSE WS2 migration, pending clarifications on Refund FOPs/invoice calculations, and rescheduled PROD smoke testing; resourcing closely managed amid team movements.</div>
+    </div></div>
+      <div class="legend-note">
+        <span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving vs. Sep 11</span>
+        <span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening vs. Sep 11</span>
+        <span class="trend-chip FLAT"><span class="trend-arrow">→</span>No change</span>
+        <span class="trend-chip NEW"><span class="trend-arrow">•</span>New this period</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Source: Delivery Excellence Report — Week of Sep 14–18, 2026 (trend vs. Sep 11, 2026 snapshot)</span>
+    <span>94 active engagements analyzed · 8 Red · 15 Amber · 71 Green</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  const wrap = document.getElementById('canopy');
+  const heights = [4,7,10,6,14,8,5,11,7,4,9,6,13,5,8,10,4,7];
+  heights.forEach(h=>{ const el = document.createElement('span'); el.style.height = h+'px'; wrap.appendChild(el); });
+})();
+
+document.querySelectorAll('nav.tabs button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.page).classList.add('active');
+  });
+});
+
+function drawDonut(svgEl, segments, opts){
+  opts = opts || {};
+  const size = opts.size || 168;
+  const stroke = opts.stroke || 22;
+  const r = (size/2) - stroke/2;
+  const c = size/2;
+  const circumference = 2 * Math.PI * r;
+  svgEl.setAttribute('viewBox', `0 0 ${size} ${size}`);
+  svgEl.innerHTML = '';
+  const track = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  track.setAttribute('cx', c); track.setAttribute('cy', c); track.setAttribute('r', r);
+  track.setAttribute('fill','none'); track.setAttribute('stroke','#e9e9e2'); track.setAttribute('stroke-width', stroke);
+  svgEl.appendChild(track);
+  let offset = 0;
+  segments.forEach(seg=>{
+    const frac = seg.value / seg.total;
+    const len = frac * circumference;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx', c); circle.setAttribute('cy', c); circle.setAttribute('r', r);
+    circle.setAttribute('fill','none'); circle.setAttribute('stroke', seg.color); circle.setAttribute('stroke-width', stroke);
+    circle.setAttribute('stroke-dasharray', `${len} ${circumference-len}`);
+    circle.setAttribute('stroke-dashoffset', -offset);
+    circle.setAttribute('stroke-linecap', segments.length>1 ? 'butt':'round');
+    circle.setAttribute('transform', `rotate(-90 ${c} ${c})`);
+    svgEl.appendChild(circle);
+    offset += len;
+  });
+}
+
+const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+drawDonut(document.getElementById('donutRag'), [
+  {value:71, total:94, color:cssVar('--green-600')},
+  {value:15, total:94, color:cssVar('--amber')},
+  {value:5,  total:94, color:cssVar('--red')},
+  {value:3,  total:94, color:cssVar('--rust')}
+]);
+
+(function(){
+  const strip = document.getElementById('ragStrip');
+  const total = 94;
+  const segs = [
+    {label:'Green', value:71, color:cssVar('--green-600')},
+    {label:'Amber', value:15, color:cssVar('--amber')},
+    {label:'Red', value:8, color:cssVar('--red')}
+  ];
+  segs.forEach(s=>{
+    const div = document.createElement('div');
+    div.className='rag-seg';
+    div.style.width = (s.value/total*100)+'%';
+    div.style.background = s.color;
+    div.textContent = s.value;
+    strip.appendChild(div);
+  });
+})();
+
+const buData = [
+  {name:'Cloud', green:24, amber:5, red:3},
+  {name:'Software Services', green:13, amber:7, red:3},
+  {name:'Big Data', green:18, amber:2, red:1},
+  {name:'Labs', green:9, amber:0, red:1},
+  {name:'Quality Assurance', green:7, amber:1, red:0}
+];
+
+const buGrid = document.getElementById('buGrid');
+const colorMap = {green:cssVar('--green-600'), amber:cssVar('--amber'), red:cssVar('--red')};
+
+buData.forEach(bu=>{
+  const total = bu.green + bu.amber + bu.red;
+  const card = document.createElement('div');
+  card.className = 'bu-card';
+  card.innerHTML = `<div class="bu-name">${bu.name}</div>`;
+  const donutWrap = document.createElement('div');
+  donutWrap.style.position='relative'; donutWrap.style.width='104px'; donutWrap.style.margin='0 auto';
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS,'svg');
+  svg.setAttribute('width','104'); svg.setAttribute('height','104'); svg.style.display='block';
+  donutWrap.appendChild(svg);
+  const center = document.createElement('div');
+  center.style.position='absolute'; center.style.inset='0';
+  center.style.display='flex'; center.style.flexDirection='column'; center.style.alignItems='center'; center.style.justifyContent='center';
+  center.innerHTML = `<span style="font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:700;color:${cssVar('--ink')}">${total}</span>`;
+  donutWrap.appendChild(center);
+  card.appendChild(donutWrap);
+  const segs = [];
+  ['green','amber','red'].forEach(k=>{ if(bu[k] > 0){ segs.push({value:bu[k], total:total, color:colorMap[k]}); } });
+  drawDonut(svg, segs, {size:104, stroke:14});
+  const legend = document.createElement('div');
+  legend.className='bu-legend';
+  ['green','amber','red'].forEach(k=>{
+    if(bu[k] > 0){
+      const item = document.createElement('span');
+      item.innerHTML = `<span class="swatch" style="background:${colorMap[k]}"></span>${k.charAt(0).toUpperCase()+k.slice(1)} ${bu[k]}`;
+      legend.appendChild(item);
+    }
+  });
+  card.appendChild(legend);
+  const totalNote = document.createElement('div');
+  totalNote.className = 'bu-total';
+  totalNote.textContent = `${(total/94*100).toFixed(1)}% of portfolio`;
+  card.appendChild(totalNote);
+  buGrid.appendChild(card);
+});
+
+const redByBuData = [
+  {bu:'Software Services', count:3, projects:[
+    {name:'MPTC App Rebuild/Hypermodernization', pm:'Gonzalez, Lenin Sebastian G.', plan:"Xpass/WebApp scope dispute ongoing — MPTC requested a combined BRD Stratpoint hasn't committed to; SOW boundary unclear and MPTC missed 2 technical meetings. Requesting 3 more developers plus additional QA; targeting Interop BRD sign-off by Sep 21 and resolving the Xpass/WebApp scope boundary by Sep 28."},
+    {name:'Globe Handyman Project (EKS Deployment for Tower 2)', pm:'Castro, Jenina G.', plan:"In EUT (end-user training); no funding decision yet on the Change Request needed to proceed."},
+    {name:'GCASH AMP', pm:'Valdez, Christine F.', plan:"Launch slipped again — from Sep 16 to Sep 23 — on continued VAPT-fix delays; client has accepted Stratpoint support only through Sep 30 while KT continues."}
+  ]},
+  {bu:'Cloud', count:3, projects:[
+    {name:'Solaire North Cloud Cruise Managed Services 2025', pm:'Yabut, Daisiree A.', plan:"Newly flagged — legacy 2025 contract has a 90-day overdue invoice from May 2026; discussing with client/Finance whether Jan–Feb dues can be folded into May billing."},
+    {name:'Globe EG - Cloud Cruise Service Multicloud 2025 - 2026', pm:'Tagadtad, Jameson O.', plan:"Newly flagged — legacy contract closed operationally (new 2026-2027 engagement now active) but February billing remains unsettled, now 90+ days overdue; Finance collection process to be invoked."},
+    {name:'BoxCrush Renewal 2024 - 2025', pm:'Yabut, Daisiree A.', plan:"Collections pending for the July and August 2025 periods; email sent to client to reconcile payments made."}
+  ]},
+  {bu:'Labs', count:1, projects:[
+    {name:'AWS ProServe - GCash Madtech - AI', pm:'Arcenas, Carl Lourence A.', plan:"UAT and prod deployment setup delayed by access/setup blockers; GCash's October production freeze (Hiraya event) adds risk. Sonny has asked Prec/AWS to advance funding toward the $50K ARR target (13K consumed so far)."}
+  ]},
+  {bu:'Big Data', count:1, projects:[
+    {name:'AWS ProServ - GCash Madtech - Data', pm:'Dominguez, Arnel V.', plan:"5 of 19 GCash DE test cases passed; remaining 4 open tickets targeted to close today. Still needs a UAT-freeze exemption for October to have a realistic shot at the $50K target."}
+  ]}
+];
+
+const redByBuEl = document.getElementById('redByBu');
+redByBuData.forEach(group=>{
+  const section = document.createElement('div');
+  section.className = 'bu-section';
+  section.innerHTML = `<div class="bu-section-head"><span class="bu-tag-lg">${group.bu}</span><span class="count-badge">${group.count} Red</span></div>`;
+  const list = document.createElement('div');
+  list.className = 'red-list';
+  group.projects.forEach(p=>{
+    const row = document.createElement('div');
+    row.className = 'red-row';
+    row.innerHTML = `<div><div class="red-project">${p.name}</div><div class="red-pm">PM: ${p.pm}</div></div><div class="red-plan">${p.plan}</div>`;
+    list.appendChild(row);
+  });
+  section.appendChild(list);
+  redByBuEl.appendChild(section);
+});
+
+const trendMeta = {
+  UP:   {arrow:'▲', label:'Improving'},
+  DOWN: {arrow:'▼', label:'Worsening'},
+  FLAT: {arrow:'→', label:'No change'},
+  NEW:  {arrow:'•', label:'New'}
+};
+
+function renderGtgList(elId, items){
+  const el = document.getElementById(elId);
+  const head = document.createElement('div');
+  head.className = 'gtg-row head';
+  head.innerHTML = `<span>Project</span><span>Business Unit</span><span>RAG</span><span>Trend</span><span>Get to Green Plan</span>`;
+  el.appendChild(head);
+  items.forEach(p=>{
+    const t = trendMeta[p.trend];
+    const row = document.createElement('div');
+    row.className = 'gtg-row';
+    row.innerHTML = `
+      <div><div class="gtg-project">${p.name}</div><div class="red-pm">PM: ${p.pm}</div></div>
+      <div><span class="bu-chip">${p.bu}</span></div>
+      <div><span class="rag-tag ${p.rag}">${p.rag}</span></div>
+      <div><span class="trend-chip ${p.trend}"><span class="trend-arrow">${t.arrow}</span>${t.label}</span></div>
+      <div class="gtg-plan">${p.plan}</div>
+    `;
+    el.appendChild(row);
+  });
+}
+
+// Financial Concerns — UD/Union Digital first (8), then the rest (7)
+const financialProjects = [
+  {name:'UD Infosec - Tine Baradero', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"Only January 2026 payment remains pending. ₱814K received Sep 14; another ~₱1.9M expected by week of Sep 30."},
+  {name:'UD- Constancio Labao (June-September)', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"Pending Jun–Aug 2026 payments; engagement extension to October pending approval. ₱814K received Sep 14; ~₱1.9M more expected by Sep 30."},
+  {name:'UD- Lery Navarro (May - October)', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"Upgraded from Red — pending May–Jul 2026 billing; ₱814K received Sep 14, ~₱1.9M more expected by Sep 30. Continued monitoring of reported attendance/responsiveness concerns."},
+  {name:'UD Infosec - Baradero (Feb-July)', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"March & April paid Aug 28; Feb, May, Jun, Jul still pending. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30."},
+  {name:'Union Digital Staff Aug Renewal - Lery Navarro (NodeJS)', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"Only February 2026 remains pending after March & April were paid Aug 28. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30."},
+  {name:'Union Digital Staff Aug Renewal - Constancio Labao (Flutter)', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"Upgraded from Red — Feb & May 2026 pending after March & April were paid Aug 28. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30."},
+  {name:'UnionDigital Staff Aug - 1 Flutter Developer', bu:'Software Services', pm:'Valdez, Christine F.', rag:'AMBER', trend:'UP', plan:"Upgraded from Red — Nov 2025–Feb 2026 payments (4 months) remain pending. ₱814K received Sep 14, ~₱1.9M more expected by Sep 30."},
+  {name:'UD - Data Engr - Jhoven Mercado', bu:'Big Data', pm:'Valdez, Christine F.', rag:'AMBER', trend:'FLAT', plan:"March–May paid Aug 28; June & July still pending, unchanged from last period. Resource exited Aug 28 with KT complete."},
+  {name:'Solaire North Cloud Cruise Managed Services 2025', bu:'Cloud', pm:'Yabut, Daisiree A.', rag:'RED', trend:'NEW', plan:"Newly flagged — legacy 2025 contract has a 90-day overdue invoice from May 2026; discussing with client/Finance whether Jan–Feb dues can be folded into May billing."},
+  {name:'Globe EG - Cloud Cruise Service Multicloud 2025 - 2026', bu:'Cloud', pm:'Tagadtad, Jameson O.', rag:'RED', trend:'NEW', plan:"Newly flagged — legacy contract closed operationally (new 2026-2027 engagement now active) but February billing remains unsettled, now 90+ days overdue; Finance collection process to be invoked."},
+  {name:'BoxCrush Renewal 2024 - 2025', bu:'Cloud', pm:'Yabut, Daisiree A.', rag:'RED', trend:'FLAT', plan:"Collections pending for the July and August 2025 periods; email sent to client to reconcile payments made."},
+  {name:'RRHI Cloud Managed Service 2026', bu:'Cloud', pm:'Yabut, Daisiree A.', rag:'AMBER', trend:'UP', plan:"Upgraded from Red — no flagged delivery risks; Service Recovery Plan 18/19 items complete. Contract renewal conversations underway, client presentation expected Sep 23–25. Collections still pending for Jul–Aug."},
+  {name:'Solaire Entertainment Cloud Cruise 2026', bu:'Cloud', pm:'Yabut, Daisiree A.', rag:'AMBER', trend:'UP', plan:"Signed SOW received Sep 2, August COCA sent. April payment collection discussed with client/Finance/AM on Sep 15; awaiting a firm schedule."},
+  {name:'Solaire North Cloud Cruise 2026', bu:'Cloud', pm:'Yabut, Daisiree A.', rag:'AMBER', trend:'UP', plan:"Signed SOW received Sep 8, August COCA sent. Jan–Feb payment discussion held Sep 15, awaiting confirmation. CSAT came back 5/5 with a client commendation."},
+  {name:'Universal Leaf Philippines Inc (ULPI) 2025', bu:'Cloud', pm:'Yabut, Daisiree A.', rag:'AMBER', trend:'DOWN', plan:"Primary CE resigned — replacement being coordinated. Client approved a further 3-month extension, but June billing is still pending and July/Aug invoices haven't been issued; extension PO still outstanding."}
+];
+
+// Delivery Concerns — Red & Amber
+const deliveryProjects = [
+  {name:'MPTC App Rebuild/Hypermodernization', bu:'Software Services', pm:'Gonzalez, Lenin Sebastian G.', rag:'RED', trend:'DOWN', plan:"Xpass/WebApp scope dispute ongoing — MPTC requested a combined BRD Stratpoint hasn't committed to; SOW boundary unclear and MPTC missed 2 technical meetings. Requesting 3 more developers (pending BU Head approval) plus additional QA; targeting Interop BRD sign-off by Sep 21 and resolving the Xpass/WebApp scope boundary by Sep 28."},
+  {name:'Globe Handyman Project (EKS Deployment for Tower 2)', bu:'Software Services', pm:'Castro, Jenina G.', rag:'RED', trend:'DOWN', plan:"In EUT (end-user training); no funding decision yet on the Change Request needed to proceed."},
+  {name:'AWS ProServe - GCash Madtech - AI', bu:'Labs', pm:'Arcenas, Carl Lourence A.', rag:'RED', trend:'DOWN', plan:"UAT and prod deployment setup delayed by access/setup blockers; GCash's October production freeze (Hiraya event) adds risk — exemption being requested. Sonny has asked Prec/AWS to advance funding toward the $50K ARR target (13K consumed so far)."},
+  {name:'AWS ProServ - GCash Madtech - Data', bu:'Big Data', pm:'Dominguez, Arnel V.', rag:'RED', trend:'UP', plan:"5 of 19 GCash DE test cases passed; remaining 4 open tickets targeted to close today. Silver-to-gold data layer expected ready for the ML team by end of day/early next. Still needs a UAT-freeze exemption for October to have a realistic shot at the $50K target."},
+  {name:'GCASH AMP', bu:'Software Services', pm:'Valdez, Christine F.', rag:'RED', trend:'DOWN', plan:"Launch slipped again — from Sep 16 to Sep 23 — on continued VAPT-fix delays; client has accepted Stratpoint support only through Sep 30 while KT continues."},
+  {name:'SBC SB Apps - CDM Data Staff Aug', bu:'Big Data', pm:'David, Dianne A.', rag:'AMBER', trend:'UP', plan:"Diane's split time between CDM and JIT continues to cause friction; SBC deployed a TDM for JIT (week of Sep 14, 2 weeks) to relieve the conflict, and Haji is transitioning coverage to JC."},
+  {name:'Rustan Cloud Cruise Service 2026-2027', bu:'Cloud', pm:'Tagadtad, Jameson O.', rag:'AMBER', trend:'FLAT', plan:"Bastion host still exposed to the public internet and vulnerable to brute-force attempts; client informed, decision on decommissioning pending. No SLA breaches or escalations in 3 months; no outstanding payments."},
+  {name:'Cebu Pacific TCOE (FY25-FY26)', bu:'Quality Assurance', pm:'Madarang, Paul Richard C.', rag:'AMBER', trend:'NEW', plan:"Newly flagged — missing raw test data for SPSE WS1, reopened bugs delaying SPSE WS2 migration, pending clarifications on Refund FOPs/invoice calculations, and rescheduled PROD smoke testing; resourcing closely managed amid team movements."}
+];
+
+renderGtgList('financialList', financialProjects);
+renderGtgList('deliveryList', deliveryProjects);
+</script>
+
+
+</body></html>
