@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Delivery Excellence Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --green-700:#064e3b;
+    --green-600:#047857;
+    --green-500:#059669;
+    --sage-400:#34d399;
+    --sage-300:#6ee7b7;
+    --sage-200:#a7f3d0;
+    --mist-100:#d1fae5;
+    --paper:#f3fbf7;
+    --amber:#c98a2b;
+    --amber-soft:#e3b976;
+    --red:#b23a48;
+    --red-soft:#d98d97;
+    --rust:#a8562e;
+    --rust-soft:#d3a382;
+    --ink:#000000;
+    --ink-soft:#000000;
+    --line:rgba(0,0,0,0.22);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Poppins', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .app{ max-width:1240px; margin:0 auto; padding:36px 28px 80px; }
+
+  header.top{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
+    padding-bottom:22px; margin-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .brand-eyebrow{
+    font-family:'Poppins', sans-serif; font-size:11.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--green-700); font-weight:700; margin:0 0 10px;
+  }
+  h1.title{
+    font-family:'Poppins', sans-serif; font-weight:800; font-size:clamp(28px, 4vw, 40px);
+    line-height:1.05; margin:0; color:var(--ink); letter-spacing:-0.01em;
+  }
+  .period{ text-align:right; font-family:'Poppins', sans-serif; font-size:13px; font-weight:500; color:var(--ink); line-height:1.6; }
+  .period b{ color:var(--ink); }
+
+  .canopy{ display:flex; align-items:flex-end; gap:3px; height:14px; margin:18px 0 30px; }
+  .canopy span{ display:block; width:100%; border-radius:2px 2px 0 0; background:var(--sage-400); opacity:.6; }
+
+  nav.tabs{ display:flex; gap:6px; margin-bottom:30px; flex-wrap:wrap; }
+  nav.tabs button{
+    font-family:'Poppins', sans-serif; font-size:12.5px; letter-spacing:.05em; text-transform:uppercase;
+    background:transparent; border:1px solid var(--ink); font-weight:600; color:var(--ink);
+    padding:10px 18px; border-radius:100px; cursor:pointer; transition:all .18s ease;
+  }
+  nav.tabs button.active{ background:var(--green-700); border-color:var(--green-700); color:#fff; font-weight:700; }
+  nav.tabs button:not(.active):hover{ border-color:var(--green-500); color:var(--ink); }
+
+  .page{ display:none; }
+  .page.active{ display:block; animation:fade .35s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+
+  .page-title{ font-family:'Poppins', sans-serif; font-size:24px; font-weight:800; color:var(--ink); margin:0 0 4px; }
+  .page-sub{ font-size:14px; font-weight:500; color:var(--ink); margin:0 0 26px; }
+
+  .grid-two{ display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-bottom:22px; }
+  @media(max-width:860px){ .grid-two{ grid-template-columns:1fr; } }
+
+  .card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px 26px 22px; }
+  .card-label{ font-family:'Poppins', sans-serif; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green-700); font-weight:700; margin:0 0 6px; }
+  .card-title{ font-family:'Poppins', sans-serif; font-size:20px; color:var(--ink); margin:0 0 18px; font-weight:700; }
+
+  .stat-row{ display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+  .donut-wrap{ position:relative; flex-shrink:0; }
+  .donut-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-center .num{ font-family:'Poppins', sans-serif; font-size:24px; font-weight:700; color:var(--ink); }
+  .donut-center .lbl{ font-size:10px; font-weight:700; color:var(--ink); text-transform:uppercase; letter-spacing:.08em; }
+
+  .legend{ display:flex; flex-direction:column; gap:12px; flex:1; min-width:210px; }
+  .legend-item{ display:flex; align-items:center; gap:10px; }
+  .swatch{ width:11px; height:11px; border-radius:3px; flex-shrink:0; }
+  .legend-text{ flex:1; }
+  .legend-name{ font-size:13.5px; color:var(--ink); font-weight:700; }
+  .legend-sub{ font-size:11px; color:var(--ink-soft); }
+  .legend-val{ font-family:'Poppins', sans-serif; font-size:15.5px; font-weight:700; color:var(--ink); text-align:right; min-width:60px; }
+  .legend-val{ display:block; }
+  .legend-item > div:last-child{ text-align:right; }
+  .legend-pct{ font-family:'Poppins', sans-serif; font-size:12px; font-weight:600; color:var(--ink); text-align:right; min-width:60px; display:block; }
+
+  .rag-strip{ display:flex; height:34px; border-radius:8px; overflow:hidden; margin-bottom:18px; }
+  .rag-seg{ display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Poppins', sans-serif; font-size:12px; font-weight:700; }
+  .rag-legend{ display:flex; gap:26px; flex-wrap:wrap; }
+  .rag-legend .legend-item{ min-width:150px; }
+
+  .bu-grid{ display:grid; grid-template-columns:repeat(5, 1fr); gap:16px; }
+  @media(max-width:1000px){ .bu-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:640px){ .bu-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .bu-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 14px; text-align:center; }
+  .bu-card .bu-name{ font-family:'Poppins', sans-serif; font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink); font-weight:700; margin-top:0; margin-bottom:12px; min-height:26px; }
+  .bu-total{ font-size:11px; font-weight:600; color:var(--ink); margin-top:12px; }
+  .bu-legend{ display:flex; justify-content:center; gap:10px; margin-top:12px; flex-wrap:wrap; }
+  .bu-legend span{ font-family:'Poppins', sans-serif; font-size:10.5px; font-weight:600; color:var(--ink); display:flex; align-items:center; gap:5px; }
+  .bu-legend .swatch{ width:8px; height:8px; border-radius:2px; }
+
+  .bu-section{ margin-bottom:22px; }
+  .bu-section:last-child{ margin-bottom:0; }
+  .bu-section-head{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .bu-section-head .bu-tag-lg{ font-family:'Poppins', sans-serif; font-size:12px; font-weight:700; color:var(--ink); text-transform:uppercase; letter-spacing:.04em; }
+  .bu-section-head .count-badge{ font-family:'Poppins', sans-serif; font-size:11px; color:#fff; background:var(--red); padding:3px 10px; border-radius:100px; }
+
+  .red-list{ display:flex; flex-direction:column; gap:0; }
+  .red-row{ display:grid; grid-template-columns:1.6fr 2.6fr; gap:20px; padding:14px 4px; border-bottom:1px solid var(--line); align-items:start; }
+  .red-row:last-child{ border-bottom:none; }
+  .red-project{ font-size:13.5px; font-weight:700; color:var(--ink); line-height:1.4; }
+  .red-pm{ font-size:11.5px; font-weight:500; color:var(--ink); margin-top:2px; font-family:'Poppins', sans-serif; }
+  .red-plan{ font-size:12.5px; color:var(--ink-soft); line-height:1.55; }
+  @media(max-width:760px){ .red-row{ grid-template-columns:1fr; gap:6px; } }
+
+  .rag-tag{ display:inline-block; font-family:'Poppins', sans-serif; font-size:10px; font-weight:700; padding:3px 9px; border-radius:100px; text-transform:uppercase; letter-spacing:.04em; color:#fff; }
+  .rag-tag.RED{ background:var(--red); }
+  .rag-tag.AMBER{ background:var(--amber); }
+  .bu-chip{ display:inline-block; font-family:'Poppins', sans-serif; font-size:10.5px; padding:3px 9px; border-radius:100px; background:var(--mist-100); color:var(--ink); border:1px solid var(--line); white-space:nowrap; }
+
+  .trend-chip{ display:inline-flex; align-items:center; gap:5px; font-family:'Poppins', sans-serif; font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px; white-space:nowrap; }
+  .trend-chip.UP{ background:#a7f3d0; color:#064e3b; }
+  .trend-chip.DOWN{ background:#f3cfd4; color:#8f1f2d; }
+  .trend-chip.FLAT{ background:var(--mist-100); color:var(--ink-soft); }
+  .trend-chip.NEW{ background:#e2e2e2; color:var(--ink-soft); }
+  .trend-arrow{ font-size:12px; line-height:1; }
+
+  .gtg-section{ margin-bottom:26px; }
+  .gtg-section-title{ font-family:'Poppins', sans-serif; font-size:19px; color:var(--ink); margin:0 0 4px; font-weight:700; }
+  .gtg-section-sub{ font-size:13px; font-weight:500; color:var(--ink); margin:0 0 14px; }
+  .gtg-row{ display:grid; grid-template-columns:1.6fr 0.85fr 0.55fr 0.85fr 2.1fr; gap:14px; padding:14px 4px; border-bottom:1px solid var(--line); align-items:start; }
+  .gtg-row.head{ font-family:'Poppins', sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--ink); padding-bottom:10px; }
+  .gtg-row:not(.head):hover{ background:var(--mist-100); }
+  .gtg-project{ font-size:14px; font-weight:700; color:var(--ink); line-height:1.4; }
+  .gtg-plan{ font-size:13px; font-weight:500; color:var(--ink); line-height:1.55; }
+  @media(max-width:900px){ .gtg-row{ grid-template-columns:1fr; gap:6px; padding:16px 4px; } .gtg-row.head{ display:none; } }
+
+  .legend-note{ display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+  .legend-note .trend-chip{ font-size:10px; }
+
+  /* ---- Side-by-side comparison ---- */
+  .compare-wrap{ display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:stretch; }
+  @media(max-width:760px){ .compare-wrap{ grid-template-columns:1fr; } .compare-arrow{ display:none; } }
+  .compare-col{ border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .compare-col.prev{ background:#f2fcf7; }
+  .compare-col.curr{ background:#fff; }
+  .compare-col-label{ font-family:'Poppins', sans-serif; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin:0 0 14px; }
+  .compare-arrow{ display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--sage-400); }
+  .compare-row{ display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); }
+  .compare-row:last-child{ border-bottom:none; }
+  .compare-row .clabel{ display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700; }
+  .compare-row .cval{ font-family:'Poppins', sans-serif; font-size:15px; font-weight:700; }
+  .compare-row .cpct{ font-family:'Poppins', sans-serif; font-size:12px; font-weight:600; color:var(--ink); margin-left:6px; }
+
+  .delta-table{ width:100%; border-collapse:collapse; margin-top:6px; }
+  .delta-table th{ font-family:'Poppins', sans-serif; font-weight:700; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); text-align:right; padding:8px 6px; border-bottom:1px solid var(--line); }
+  .delta-table th:first-child{ text-align:left; }
+  .delta-table td{ padding:10px 6px; border-bottom:1px solid var(--line); font-size:13.5px; font-weight:600; text-align:right; }
+  .delta-table td:first-child{ text-align:left; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .delta-table tr:last-child td{ border-bottom:none; }
+  .delta-val{ font-family:'Poppins', sans-serif; font-weight:700; }
+  .delta-val.pos{ color:var(--green-700); }
+  .delta-val.neg{ color:var(--red); }
+  .delta-val.zero{ color:var(--ink-soft); }
+
+  footer.foot{ margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-size:11.5px; font-weight:600; color:var(--ink); font-family:'Poppins', sans-serif; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; }
+
+  /* ---- Page 4: Red trend ---- */
+  .stat-cards{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px; }
+  @media(max-width:900px){ .stat-cards{ grid-template-columns:repeat(2,1fr); } }
+  .stat-card{ background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; }
+  .stat-card .sc-label{ font-family:'Poppins', sans-serif; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--green-700); margin:0 0 8px; }
+  .stat-card .sc-num{ font-family:'Poppins', sans-serif; font-size:30px; font-weight:800; color:var(--ink); line-height:1.1; }
+  .stat-card .sc-sub{ font-size:12.5px; font-weight:500; color:var(--ink); margin-top:6px; line-height:1.45; }
+  .chart-box svg{ width:100%; height:auto; display:block; }
+  .flow-table{ width:100%; border-collapse:collapse; }
+  .flow-table th{ font-family:'Poppins', sans-serif; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-align:left; padding:8px 8px; border-bottom:1px solid var(--ink); }
+  .flow-table td{ padding:12px 8px; border-bottom:1px solid var(--line); font-size:13px; font-weight:500; vertical-align:top; }
+  .flow-table td.num{ font-weight:800; font-size:15px; text-align:center; }
+  .flow-table th.num{ text-align:center; }
+  .hist-head,.hist-row{ display:grid; grid-template-columns:minmax(230px,2.4fr) repeat(6,minmax(52px,1fr)) 64px; gap:6px; align-items:center; }
+  .hist-head{ font-family:'Poppins', sans-serif; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:0 4px 8px; border-bottom:1px solid var(--ink); }
+  .hist-head span{ text-align:center; } .hist-head span:first-child{ text-align:left; }
+  .hist-row{ padding:7px 4px; border-bottom:1px solid var(--line); }
+  .hist-row:hover{ background:var(--mist-100); }
+  .hist-name{ font-size:13px; font-weight:700; line-height:1.35; }
+  .hcell{ border-radius:7px; text-align:center; font-family:'Poppins', sans-serif; font-size:10.5px; font-weight:700; padding:5px 0; }
+  .hcell.R{ background:var(--red); color:#fff; } .hcell.A{ background:var(--amber); color:#fff; }
+  .hcell.G{ background:#a7f3d0; color:#000; } .hcell.N{ background:#ececec; color:#000; } .hcell.X{ background:#d4d4d4; color:#000; }
+  .hist-count{ text-align:center; font-weight:800; font-size:13px; }
+  .hist-scroll{ overflow-x:auto; } .hist-inner{ min-width:700px; }
+  .hist-legend{ display:flex; gap:16px; flex-wrap:wrap; margin-top:14px; padding-top:12px; border-top:1px solid var(--line); font-size:12px; font-weight:600; }
+  .hist-legend span.k{ display:inline-flex; align-items:center; gap:6px; }
+  .hist-legend .hcell{ width:26px; padding:3px 0; font-size:10px; }
+  .insights{ margin:0; padding-left:20px; } .insights li{ font-size:14px; font-weight:500; line-height:1.6; margin-bottom:10px; }
+  .footnote{ font-size:12px; font-weight:500; margin-top:12px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div>
+      <p class="brand-eyebrow">Stratpoint · Delivery Excellence</p>
+      <h1 class="title">Delivery Excellence Report</h1>
+    </div>
+    <div class="period">Reporting window<br><b>Week of Nov 9–13, 2026</b><br>vs. Nov 6, 2026 report</div>
+  </header>
+  <div class="canopy" id="canopy"></div>
+  <nav class="tabs">
+    <button class="active" data-page="p1">01 — Status &amp; RAG vs. Nov 6</button>
+    <button data-page="p2">02 — RAG by Business Unit</button>
+    <button data-page="p3">03 — Red &amp; Amber Get to Green</button>
+    <button data-page="p4">04 — Red Trend since Sep</button>
+  </nav>
+
+  <section class="page active" id="p1">
+    <p class="page-title">Engagement Status &amp; RAG — Nov 20 vs. Nov 6</p>
+    <p class="page-sub">96 active engagements this period (down from 99 on Nov 6). Active vs. Active–BED and overall RAG health, each shown side by side against the Nov 6 report, with Red split by root cause.</p>
+
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Engagement Type</p>
+      <p class="card-title">Active vs. Active – Beyond End Date (BED)</p>
+      <div class="compare-wrap">
+        <div class="compare-col prev">
+          <p class="compare-col-label">Nov 6, 2026 · 99 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--sage-300)"></span>Active</span><span><span class="cval">72</span><span class="cpct">72.7%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--sage-400)"></span>Active – BED</span><span><span class="cval">27</span><span class="cpct">27.3%</span></span></div>
+        </div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-col curr">
+          <p class="compare-col-label">Nov 20, 2026 · 96 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--green-600)"></span>Active</span><span><span class="cval">63</span><span class="cpct">65.6%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--sage-400)"></span>Active – BED</span><span><span class="cval">33</span><span class="cpct">34.4%</span></span></div>
+        </div>
+      </div>
+      <table class="delta-table">
+        <tr><th>Change</th><th>Count</th><th>Percentage points</th></tr>
+        <tr><td><span class="swatch" style="background:var(--green-600)"></span>Active</td><td><span class="delta-val neg">−9</span></td><td><span class="delta-val neg">−7.1 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--sage-400)"></span>Active – BED</td><td><span class="delta-val neg">+6</span></td><td><span class="delta-val neg">+7.1 pp</span></td></tr>
+      </table>
+      <p class="page-sub" style="margin:14px 0 0;">BED engagements rose from 27 to 33 (27.3% → 34.4%), a third of the portfolio. Twelve engagements moved from Active to BED — SBC SB Apps PM Staff Aug, SBC SB Apps CDM, [Extension] 2026 Gcash C&amp;I Scrum Master, Globe PayO 16x7 Support, UD Tin Baradero (Aug–Oct), CEB DO Mobile Staff Aug 2026, MATERRA Extension Jul–Dec 2026, AWS ProServe GCash Madtech AI, Unilab AWS Jezero 2 Extension, AutoRenew Kafka On Demand, and two GCash SS Staff Aug rows — and UD - DATA ENGINEERS 2025 returned as BED. Offsetting that, two rows moved back to Active (UnionDigital 1 Flutter Developer, BPI MS Data Clean Up Change Request) and five BED rows left the tracker (FY26 Q3Q4 Capex, Opex and Test Automation, Globe EG Phil Life DR, PayO Modernization Demands). Data note: 8 rows tagged BED have an end date still in the future and 8 rows tagged Active have already ended; the two offset, so counting by end date gives the same 63 / 33. Globe Engineering Staff Aug for Customer Interactions Tribe (ended Jul 20) remains excluded as before.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Portfolio Health</p>
+      <p class="card-title">Green / Amber / Red — Red split by root cause</p>
+      <div class="stat-row">
+        <div class="donut-wrap">
+          <svg id="donutRag" width="168" height="168"></svg>
+          <div class="donut-center"><span class="num">96</span><span class="lbl">Total</span></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="swatch" style="background:var(--green-600)"></span><div class="legend-text"><div class="legend-name">Green</div></div><div><span class="legend-val">71</span><span class="legend-pct">74.0%</span></div></div>
+          <div class="legend-item"><span class="swatch" style="background:var(--amber)"></span><div class="legend-text"><div class="legend-name">Amber</div></div><div><span class="legend-val">10</span><span class="legend-pct">10.4%</span></div></div>
+          <div class="legend-item"><span class="swatch" style="background:var(--red)"></span><div class="legend-text"><div class="legend-name">Red — Delivery Concerns</div></div><div><span class="legend-val">4</span><span class="legend-pct">4.2%</span></div></div>
+          <div class="legend-item"><span class="swatch" style="background:var(--rust)"></span><div class="legend-text"><div class="legend-name">Red — Financial Concerns</div></div><div><span class="legend-val">11</span><span class="legend-pct">11.5%</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-label">Nov 6 vs. Nov 20</p>
+      <p class="card-title">RAG Comparison — Side by Side</p>
+      <div class="compare-wrap">
+        <div class="compare-col prev">
+          <p class="compare-col-label">Nov 6, 2026 · 99 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--green-600)"></span>Green</span><span><span class="cval">74</span><span class="cpct">74.7%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--amber)"></span>Amber</span><span><span class="cval">14</span><span class="cpct">14.1%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--red)"></span>Red — Delivery</span><span><span class="cval">4</span><span class="cpct">4.0%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--rust)"></span>Red — Financial</span><span><span class="cval">7</span><span class="cpct">7.1%</span></span></div>
+        </div>
+        <div class="compare-arrow">→</div>
+        <div class="compare-col curr">
+          <p class="compare-col-label">Nov 20, 2026 · 96 total</p>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--green-600)"></span>Green</span><span><span class="cval">71</span><span class="cpct">74.0%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--amber)"></span>Amber</span><span><span class="cval">10</span><span class="cpct">10.4%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--red)"></span>Red — Delivery</span><span><span class="cval">4</span><span class="cpct">4.2%</span></span></div>
+          <div class="compare-row"><span class="clabel"><span class="swatch" style="background:var(--rust)"></span>Red — Financial</span><span><span class="cval">11</span><span class="cpct">11.5%</span></span></div>
+        </div>
+      </div>
+      <table class="delta-table">
+        <tr><th>Change</th><th>Count</th><th>Percentage points</th></tr>
+        <tr><td><span class="swatch" style="background:var(--green-600)"></span>Green</td><td><span class="delta-val neg">−3</span></td><td><span class="delta-val neg">−0.8 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--amber)"></span>Amber</td><td><span class="delta-val pos">−4</span></td><td><span class="delta-val pos">−3.7 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--red)"></span>Red — Delivery</td><td><span class="delta-val neg">0</span></td><td><span class="delta-val neg">+0.1 pp</span></td></tr>
+        <tr><td><span class="swatch" style="background:var(--rust)"></span>Red — Financial</td><td><span class="delta-val neg">+4</span></td><td><span class="delta-val neg">+4.4 pp</span></td></tr>
+        <tr><td><b>Total Red</b></td><td><span class="delta-val neg">+4</span></td><td><span class="delta-val neg">+4.5 pp</span></td></tr>
+      </table>
+      <p class="page-sub" style="margin:14px 0 0;">Red rose from 11 to 15, the highest point since the September reports began, while Amber fell from 14 to 10. AWS ProServe GCash Madtech AI and Data both relapsed from Amber to Red on the unresolved $50K ARR gap (workload cost is $49,434 but only $13,590 shows as eligible spend). UD - Data Engr - Jhoven Mercado slipped from Green to Red and UD - DATA ENGINEERS 2025 came back on the tracker as Red, so all seven UD / Union Digital engagements are Red again, with a reconciliation now set for Nov 26. Eight Ambers cleared to Green — Globe PayO 16x7 Support, four GCASH rows (Staffing C&amp;I Additional HC, Data Engineer for New Business, Data Governance, Data Tribe MS 2026), BPI MS Data Clean Up, Vivant and ULPI. Six Greens turned Amber: three Unilab Unidata Staff Aug 2026 rows (an accreditation / guarantee issue blocking the extension), Solaire North Cloud Cruise 2026, GReceipts EKS migration extension and AETOS 2025. Two NVIDIA TTYSC (Nov–Jan 2027) rows joined as Green; World of Fun, Globe EG Phil Life DR, PayO Modernization Demands and the three FY26 Q3Q4 rows left the tracker. Reclassified this period: both AWS ProServe rows to Financial (the sheet says the Red is financial), and GCASH GRC 2026 to Delivery (attrition risk, billing issue resolved).</p>
+    </div>
+  </section>
+
+  <section class="page" id="p2">
+    <p class="page-title">RAG Health by Business Unit</p>
+    <p class="page-sub">Red / Amber / Green split across the portfolio, broken down by business unit — Nov 20, 2026.</p>
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Portfolio-wide</p>
+      <p class="card-title">Overall RAG Split — Nov 20</p>
+      <div class="rag-strip" id="ragStrip"></div>
+      <div class="rag-legend">
+        <div class="legend-item"><span class="swatch" style="background:var(--green-600)"></span><div class="legend-text"><div class="legend-name">Green</div></div><div><span class="legend-val">71</span><span class="legend-pct">74.0%</span></div></div>
+        <div class="legend-item"><span class="swatch" style="background:var(--amber)"></span><div class="legend-text"><div class="legend-name">Amber</div></div><div><span class="legend-val">10</span><span class="legend-pct">10.4%</span></div></div>
+        <div class="legend-item"><span class="swatch" style="background:var(--red)"></span><div class="legend-text"><div class="legend-name">Red</div></div><div><span class="legend-val">15</span><span class="legend-pct">15.6%</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="card-label">By Business Unit</p>
+      <p class="card-title">Red / Amber / Green Projects per Unit</p>
+      <div class="bu-grid" id="buGrid"></div>
+    </div>
+  </section>
+
+  <section class="page" id="p3">
+    <p class="page-title">Red &amp; Amber Projects — Get to Green Plans</p>
+    <p class="page-sub">All 25 Red and Amber projects, grouped by root cause: Financial Concerns first (Red and Amber together, UD / Union Digital engagements listed consecutively), then Delivery Concerns. Trend shows movement vs. the Nov 6, 2026 report.</p>
+    <div class="card gtg-section">
+      <p class="gtg-section-title">Financial Concerns — Red &amp; Amber</p>
+      <p class="gtg-section-sub">18 projects (11 Red, 7 Amber) — unresolved billing, collection, funding, or contract blockers. The 7 UD / Union Digital engagements are listed first and consecutively.</p>
+      <div id="financialList"></div>
+    </div>
+    <div class="card gtg-section" style="margin-bottom:0;">
+      <p class="gtg-section-title">Delivery Concerns — Red &amp; Amber</p>
+      <p class="gtg-section-sub">7 projects (4 Red, 3 Amber) — active execution, scope, resourcing, or timeline risk as the primary driver.</p>
+      <div id="deliveryList"></div>
+      <div class="legend-note">
+        <span class="trend-chip UP"><span class="trend-arrow">▲</span>Improving vs. Nov 6</span>
+        <span class="trend-chip DOWN"><span class="trend-arrow">▼</span>Worsening vs. Nov 6</span>
+        <span class="trend-chip FLAT"><span class="trend-arrow">→</span>No change</span>
+        <span class="trend-chip NEW"><span class="trend-arrow">•</span>New this period</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="p4">
+    <p class="page-title">Red Trend — Sep 11 to Nov 20</p>
+    <p class="page-sub">How Red has moved across the six reports since September, what is driving it, and which projects keep coming back. Counts are as published in each report.</p>
+    <div class="stat-cards">
+      <div class="stat-card"><p class="sc-label">Red today</p><div class="sc-num">15</div><div class="sc-sub">15.6% of portfolio — the highest of the six reports (13 on Sep 11, low of 8 on Sep 23).</div></div>
+      <div class="stat-card"><p class="sc-label">Red excluding UD / Union Digital</p><div class="sc-num">9 → 8</div><div class="sc-sub">9, 8, 7, 8, 6, 8 across the six reports. The UD / Union Digital group runs 4, 0, 6, 6, 5, 7.</div></div>
+      <div class="stat-card"><p class="sc-label">Financial share of Red</p><div class="sc-num">46% → 73%</div><div class="sc-sub">Delivery-driven Red fell from 7 to 4 while Financial-driven Red rose from 6 to 11.</div></div>
+      <div class="stat-card"><p class="sc-label">Chronic Reds</p><div class="sc-num">7</div><div class="sc-sub">Red in 5+ of the 6 reports; 3 were Red in all six (BoxCrush, Globe Handyman, MPTC App Rebuild).</div></div>
+    </div>
+    <div class="grid-two">
+      <div class="card"><p class="card-label">Red by root cause</p><p class="card-title">Red projects per report</p><div class="chart-box" id="chartRed"></div></div>
+      <div class="card"><p class="card-label">What drives the swings</p><p class="card-title">UD / Union Digital vs. all other Red</p><div class="chart-box" id="chartUD"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Red movement</p>
+      <p class="card-title">Who entered and left Red between reports</p>
+      <table class="flow-table">
+        <tr><th>Between</th><th class="num">Stayed Red</th><th class="num">Left Red</th><th class="num">Newly Red</th><th class="num">Net</th><th>Main movers</th></tr>
+        <tr><td><b>Sep 11 → Sep 23</b></td><td class="num">6</td><td class="num">7</td><td class="num">2</td><td class="num" style="color:var(--green-700)">−5</td><td>All four UD / Union Digital Reds eased to Amber, plus RRHI and Globe EG Phil Life DR; MPTC Core Systems rolled off. New: two legacy 2025 contracts (Solaire North, Globe EG Multicloud).</td></tr>
+        <tr><td><b>Sep 23 → Oct 12</b></td><td class="num">5</td><td class="num">3</td><td class="num">8</td><td class="num" style="color:var(--red)">+5</td><td>Six UD / Union Digital engagements turned Red after the September payout did not happen, plus RRHI and World of Fun. GCASH AMP eased to Amber and the two legacy contracts cleared.</td></tr>
+        <tr><td><b>Oct 12 → Oct 23</b></td><td class="num">12</td><td class="num">1</td><td class="num">2</td><td class="num" style="color:var(--red)">+1</td><td>New: SBC ODP Wealth Extension and OKTedi - DMS. World of Fun eased to Amber.</td></tr>
+        <tr><td><b>Oct 23 → Nov 6</b></td><td class="num">9</td><td class="num">5</td><td class="num">1</td><td class="num" style="color:var(--green-700)">−4</td><td>AWS ProServe AI, AWS ProServ Data and RRHI eased to Amber; UD - Lery Navarro cleared to Green and UD - DATA ENGINEERS 2025 dropped off the tracker. New: Union Digital Constancio Labao (Flutter).</td></tr>
+        <tr><td><b>Nov 6 → Nov 20</b></td><td class="num">10</td><td class="num">0</td><td class="num">4</td><td class="num" style="color:var(--red)">+4</td><td>Nobody left Red. AWS ProServe AI and AWS ProServ Data relapsed to Red, UD - Data Engr - Jhoven Mercado slipped from Green, and UD - DATA ENGINEERS 2025 returned to the tracker as Red.</td></tr>
+      </table>
+      <p class="footnote">Counted by project: OKTedi - DMS is one project, though it has appeared as two rows since Nov 6.</p>
+    </div>
+    <div class="card" style="margin-bottom:22px;">
+      <p class="card-label">Project history</p>
+      <p class="card-title">RAG history of every project that has been Red since Sep 11</p>
+      <div class="hist-scroll"><div class="hist-inner" id="histGrid"></div></div>
+      <div class="hist-legend">
+        <span class="k"><span class="hcell R">R</span>Red</span>
+        <span class="k"><span class="hcell A">A</span>Amber</span>
+        <span class="k"><span class="hcell G">OK</span>Not flagged Red / Amber</span>
+        <span class="k"><span class="hcell N">–</span>Not yet in tracker</span>
+        <span class="k"><span class="hcell X">×</span>Left tracker</span>
+      </div>
+      <p class="footnote">There is no raw sheet for the Sep 11 report, so unflagged projects in that column are shown as OK. Sep 23 reflects the UD Infosec - Tine Baradero correction (Amber).</p>
+    </div>
+    <div class="card">
+      <p class="card-label">Reading the trend</p>
+      <p class="card-title">What the data says</p>
+      <ul class="insights">
+        <li><b>Red is at a new high.</b> 15 projects (15.6%) are Red, above the previous peak of 14 on Oct 23 and the 13 on Sep 11. 22 different projects have been Red at least once across the six reports, 16 of them more than once.</li>
+        <li><b>The UD / Union Digital group is Red again.</b> All seven of its engagements are Red (4, 0, 6, 6, 5, 7 across the reports) with a reconciliation now set for Nov 26. Red from every other project is back up to 8 after dipping to 6, because the two AWS ProServe engagements relapsed.</li>
+        <li><b>Red is now mostly a collections and funding problem.</b> Financial concerns make up 73% of Red (46% on Sep 11); delivery-driven Red fell from 7 to 4 and is now just OKTedi (two rows), SBC ODP and MPTC.</li>
+        <li><b>Red keeps coming back.</b> 8 of the 22 projects have left Red and then returned, including AWS ProServe AI and Data, which eased to Amber on Nov 6 and are Red again. BoxCrush Renewal, Globe Handyman and MPTC App Rebuild have been Red in every report.</li>
+        <li><b>Red plus Amber is flat, but the mix got worse.</b> It is 25 projects (26.0%), the same count as Nov 6, down from 30.5% on Sep 11 — but 15 are now Red against 11 two weeks ago.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Source: Delivery Excellence Report — Week of Nov 9–13, 2026 (trend vs. Nov 6, 2026 report)</span>
+    <span>96 active engagements analyzed · 15 Red · 10 Amber · 71 Green</span>
+  </footer>
+</div>
+<script>
+(function(){
+  const wrap = document.getElementById('canopy');
+  const heights = [4,7,10,6,14,8,5,11,7,4,9,6,13,5,8,10,4,7];
+  heights.forEach(h=>{ const el = document.createElement('span'); el.style.height = h+'px'; wrap.appendChild(el); });
+})();
+
+document.querySelectorAll('nav.tabs button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.page).classList.add('active');
+  });
+});
+
+function drawDonut(svgEl, segments, opts){
+  opts = opts || {};
+  const size = opts.size || 168;
+  const stroke = opts.stroke || 22;
+  const r = (size/2) - stroke/2;
+  const c = size/2;
+  const circumference = 2 * Math.PI * r;
+  svgEl.setAttribute('viewBox', `0 0 ${size} ${size}`);
+  svgEl.innerHTML = '';
+  const track = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  track.setAttribute('cx', c); track.setAttribute('cy', c); track.setAttribute('r', r);
+  track.setAttribute('fill','none'); track.setAttribute('stroke','#e9e9e2'); track.setAttribute('stroke-width', stroke);
+  svgEl.appendChild(track);
+  let offset = 0;
+  segments.forEach(seg=>{
+    const frac = seg.value / seg.total;
+    const len = frac * circumference;
+    const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx', c); circle.setAttribute('cy', c); circle.setAttribute('r', r);
+    circle.setAttribute('fill','none'); circle.setAttribute('stroke', seg.color); circle.setAttribute('stroke-width', stroke);
+    circle.setAttribute('stroke-dasharray', `${len} ${circumference-len}`);
+    circle.setAttribute('stroke-dashoffset', -offset);
+    circle.setAttribute('stroke-linecap', segments.length>1 ? 'butt':'round');
+    circle.setAttribute('transform', `rotate(-90 ${c} ${c})`);
+    svgEl.appendChild(circle);
+    offset += len;
+  });
+}
+
+const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+
+
+
+
+drawDonut(document.getElementById('donutRag'), [
+  {value:71, total:96, color:cssVar('--green-600')},
+  {value:10, total:96, color:cssVar('--amber')},
+  {value:4,  total:96, color:cssVar('--red')},
+  {value:11, total:96, color:cssVar('--rust')}
+]);
+(function(){
+  const strip=document.getElementById('ragStrip');
+  [['Green',71,'--green-600'],['Amber',10,'--amber'],['Red',15,'--red']].forEach(s=>{
+    const d=document.createElement('div'); d.className='rag-seg';
+    d.style.width=(s[1]/96*100)+'%'; d.style.background=cssVar(s[2]); d.textContent=s[1]; strip.appendChild(d);
+  });
+})();
+const buData=[
+  {name:'Cloud', green:24, amber:5, red:1},
+  {name:'Software Services', green:18, amber:2, red:7},
+  {name:'Big Data', green:14, amber:2, red:5},
+  {name:'Quality Assurance', green:8, amber:0, red:0},
+  {name:'Labs', green:7, amber:1, red:2}
+];
+const buGrid=document.getElementById('buGrid');
+const colorMap={green:cssVar('--green-600'), amber:cssVar('--amber'), red:cssVar('--red')};
+buData.forEach(bu=>{
+  const total=bu.green+bu.amber+bu.red;
+  const card=document.createElement('div'); card.className='bu-card';
+  card.innerHTML=`<div class="bu-name">${bu.name}</div>`;
+  const w=document.createElement('div'); w.style.cssText='position:relative;width:104px;margin:0 auto';
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('width','104'); svg.setAttribute('height','104'); svg.style.display='block'; w.appendChild(svg);
+  const c=document.createElement('div'); c.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center';
+  c.innerHTML=`<span style="font-family:'Poppins',sans-serif;font-size:17px;font-weight:700">${total}</span>`; w.appendChild(c);
+  card.appendChild(w);
+  const segs=[]; ['green','amber','red'].forEach(k=>{ if(bu[k]>0) segs.push({value:bu[k],total:total,color:colorMap[k]}); });
+  drawDonut(svg,segs,{size:104,stroke:14});
+  const lg=document.createElement('div'); lg.className='bu-legend';
+  ['green','amber','red'].forEach(k=>{ if(bu[k]>0){ const i=document.createElement('span');
+    i.innerHTML=`<span class="swatch" style="background:${colorMap[k]}"></span>${k[0].toUpperCase()+k.slice(1)} ${bu[k]} (${(bu[k]/total*100).toFixed(1)}%)`; lg.appendChild(i); } });
+  card.appendChild(lg);
+  const t=document.createElement('div'); t.className='bu-total'; t.textContent=`${total} projects · ${(total/96*100).toFixed(1)}% of portfolio`; card.appendChild(t);
+  buGrid.appendChild(card);
+});
+const trendMeta={UP:{arrow:'▲',label:'Improving'},DOWN:{arrow:'▼',label:'Worsening'},FLAT:{arrow:'→',label:'No change'},NEW:{arrow:'•',label:'New'}};
+function renderGtgList(elId,items){
+  const el=document.getElementById(elId);
+  const head=document.createElement('div'); head.className='gtg-row head';
+  head.innerHTML='<span>Project</span><span>Business Unit</span><span>RAG</span><span>Trend</span><span>Get to Green Plan</span>';
+  el.appendChild(head);
+  items.forEach(p=>{
+    const t=trendMeta[p.trend]; const row=document.createElement('div'); row.className='gtg-row';
+    row.innerHTML=`<div><div class="gtg-project">${p.name}</div><div class="red-pm">PM: ${p.pm}</div></div>
+      <div><span class="bu-chip">${p.bu}</span></div>
+      <div><span class="rag-tag ${p.rag}">${p.rag}</span></div>
+      <div><span class="trend-chip ${p.trend}"><span class="trend-arrow">${t.arrow}</span>${t.label}</span></div>
+      <div class="gtg-plan">${p.plan}</div>`;
+    el.appendChild(row);
+  });
+}
+const financialProjects=[
+ {
+  "name": "UD Infosec - Baradero (Feb-July)",
+  "bu": "Software Services",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "Only the February payment milestone remains pending. Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "Union Digital Staff Aug Renewal - Lery Navarro (NodeJS)",
+  "bu": "Software Services",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "February payment milestone still pending; extension to end of December. Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "Union Digital Staff Aug Renewal - Constancio Labao (Flutter)",
+  "bu": "Software Services",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "February payment milestone still pending; extension to end of December. Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "UnionDigital Staff Aug - 1 Flutter Developer",
+  "bu": "Software Services",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "UP",
+  "plan": "Improved — only the February payment milestone remains (January is no longer listed). Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "UD Infosec - Tine Baradero",
+  "bu": "Software Services",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "Payment milestone still pending (the sheet now lists February). Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "UD - Data Engr - Jhoven Mercado",
+  "bu": "Big Data",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "DOWN",
+  "plan": "Slipped from Green to Red — February payment milestone pending. Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "UD - DATA ENGINEERS 2025",
+  "bu": "Big Data",
+  "pm": "Valdez, Christine F.",
+  "rag": "RED",
+  "trend": "NEW",
+  "plan": "Back on the tracker as Red (it left the tracker on Nov 6) — February payment milestone pending. Reconciliation discussion with the UD team moved to Thu Nov 26."
+ },
+ {
+  "name": "Globe Handyman Project (EKS Deployment for Tower 2)",
+  "bu": "Software Services",
+  "pm": "Castro, Jenina G.",
+  "rag": "RED",
+  "trend": "UP",
+  "plan": "Hypercare completed Nov 18. Final CR amount under negotiation: Globe countered with 1.85M \"co-investment\" against the 3.75M proposed and advised taking the balance from upcoming projects. BBSDT proposal to go to PropBoard with an additional 2M to cover the Handyman CR."
+ },
+ {
+  "name": "AWS ProServe - GCash Madtech - AI",
+  "bu": "Labs",
+  "pm": "Arcenas, Carl Lourence A.",
+  "rag": "RED",
+  "trend": "DOWN",
+  "plan": "Back to Red from Amber — no delivery issue; the Red is financial. AWS workload cost is $49,434, but only $13,590 shows as eligible spend in the portal. Team meets the GCash signatory Nov 23 to secure sign-off and escalate the delay in JIRA tagging tickets."
+ },
+ {
+  "name": "AWS ProServ - GCash Madtech - Data",
+  "bu": "Big Data",
+  "pm": "Dominguez, Arnel V.",
+  "rag": "RED",
+  "trend": "DOWN",
+  "plan": "Back to Red from Amber on the same funding gap: $49,434 workload cost vs. $13,590 eligible spend. KT for UDP Workstream 1 continues, with hypercare through Nov 30. Meeting with the GCash signatory Nov 23."
+ },
+ {
+  "name": "BoxCrush Renewal 2024 - 2025",
+  "bu": "Cloud",
+  "pm": "Yabut, Daisiree A.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "Client still not responding to meeting requests. CFO alignment pending on writing off the 2 outstanding payment milestones."
+ },
+ {
+  "name": "Unilab Unidata Staff Aug 2026 - SS",
+  "bu": "Software Services",
+  "pm": "Baylon, Erick John M.",
+  "rag": "AMBER",
+  "trend": "DOWN",
+  "plan": "Newly Amber — renewal of resources depends on resolving an accreditation issue and agreeing the statement that the guarantee ends automatically when the contract completes. Account Management working with the client POC before the Dec 22 contract end."
+ },
+ {
+  "name": "Unilab Unidata Staff Aug 2026 - Data",
+  "bu": "Big Data",
+  "pm": "Baylon, Erick John M.",
+  "rag": "AMBER",
+  "trend": "DOWN",
+  "plan": "Newly Amber — same accreditation / guarantee issue blocking the extension; to be resolved before the Dec 22 contract end."
+ },
+ {
+  "name": "Unilab Unidata Staff Aug 2026 - AI",
+  "bu": "Labs",
+  "pm": "Baylon, Erick John M.",
+  "rag": "AMBER",
+  "trend": "DOWN",
+  "plan": "Newly Amber — same accreditation / guarantee issue blocking the extension; to be resolved before the current contract end date. Delivery continues (Dagster sensors, CommIQ work)."
+ },
+ {
+  "name": "Solaire Entertainment Cloud Cruise 2026",
+  "bu": "Cloud",
+  "pm": "Yabut, Daisiree A.",
+  "rag": "AMBER",
+  "trend": "UP",
+  "plan": "ARs settled as of Nov 12 (6 were pending on Nov 6). September AR still pending and October milestone due for billing."
+ },
+ {
+  "name": "Solaire North Cloud Cruise 2026",
+  "bu": "Cloud",
+  "pm": "Yabut, Daisiree A.",
+  "rag": "AMBER",
+  "trend": "DOWN",
+  "plan": "Back to Amber from Green — ARs settled Oct 29, but the September AR is still pending and the October milestone is due for billing."
+ },
+ {
+  "name": "GReceipts EKS 1 to EKS 2 Migration Extension + Luke Ceris Migration (AWS Funding)",
+  "bu": "Cloud",
+  "pm": "Castro, Jenina G.",
+  "rag": "AMBER",
+  "trend": "DOWN",
+  "plan": "Newly Amber — billing delayed by a locked Ariba account. The account has since been unlocked and invoices can now be submitted."
+ },
+ {
+  "name": "Solutions 30 Cloud DevOps Consulting",
+  "bu": "Cloud",
+  "pm": "Mana-ay, Isiah Jordan A.",
+  "rag": "AMBER",
+  "trend": "UP",
+  "plan": "May–June settled as of Oct 30 (5 ARs were pending on Nov 6); 3 milestones still pending (Jul–Oct 2026). Following up on the remaining receivables."
+ }
+];
+const deliveryProjects=[
+ {
+  "name": "OKTedi Mining Ltd - Data Managed Service",
+  "bu": "Big Data",
+  "pm": "Arcenas, Carl Lourence A.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "Project started Oct 19 but there is still no signed LOI (SOW due within 30 days), so the 1st payment milestone can't be billed. Timeline moved on a pending CCX setup — go-live is no longer the week of Jan 11 — and scope changed to an AI chatbot instead of a PowerBI dashboard. Sean is following up on the LOI; a mini-workshop is planned to firm up requirements."
+ },
+ {
+  "name": "OKTedi Mining Ltd - Data Managed Service (AI)",
+  "bu": "Labs",
+  "pm": "Arcenas, Carl Lourence A.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "Same as the main OKTedi project: no signed LOI, timeline moved on the pending CCX setup, scope changed to an AI chatbot."
+ },
+ {
+  "name": "SBC ODP Wealth Extension October 2026",
+  "bu": "Big Data",
+  "pm": "Tan, Jerenilyn",
+  "rag": "RED",
+  "trend": "UP",
+  "plan": "14 Java microservices running in SIT; SIT and UAT ongoing with no defect tickets assigned; TCOE defects closed and performance testing passed. Pre-prod deployment set for Nov 20; PDAR approval to follow offline once SBC provides data counts. October milestone invoice still to be issued. The sheet lists no explicit risk behind the Red rating."
+ },
+ {
+  "name": "MPTC App Rebuild/Hypermodernization",
+  "bu": "Software Services",
+  "pm": "Gonzalez, Lenin Sebastian G.",
+  "rag": "RED",
+  "trend": "FLAT",
+  "plan": "Support requested Nov 14 after issues when MPTC deployed security patches. Runtime Upgrades have not been deployed to production because MPTC decided to provision a new Prod environment; since the deployment affects passages, MPTC is being very careful and there is no exact date yet — the team will be on standby. Financials: the CR amount has been discussed, but negotiations are still expected."
+ },
+ {
+  "name": "RRHI Cloud Managed Service 2026",
+  "bu": "Cloud",
+  "pm": "Concha, Gem Harvey",
+  "rag": "AMBER",
+  "trend": "FLAT",
+  "plan": "Held at Amber for ongoing renewal discussions — the client asked for a 3-FTE proposal to check commercial impact, and a proposal for 3 CEs (instead of 4) has been submitted for approval. Patching and security remediation continue around the Nov 15 change freeze. October milestone due for billing; ARs up to date."
+ },
+ {
+  "name": "GCASH GRC 2026",
+  "bu": "Big Data",
+  "pm": "Papa, John Paul Angelo Z.",
+  "rag": "AMBER",
+  "trend": "FLAT",
+  "plan": "Amber now reflects attrition risk — one data engineer (Kim Montana) is considering an outside offer and the RM has been engaged. The earlier customer-profile billing issue is resolved and with Finance for invoicing. Delivery on track."
+ },
+ {
+  "name": "AETOS 2025",
+  "bu": "Software Services",
+  "pm": "Castro, Jenina G.",
+  "rag": "AMBER",
+  "trend": "DOWN",
+  "plan": "Newly Amber — project to pause after Jan 6, 2027 with resources to be reallocated. Meeting the client to finalize the project end date."
+ }
+];
+renderGtgList('financialList',financialProjects);
+renderGtgList('deliveryList',deliveryProjects);
+const P4={"labels": ["Sep 11", "Sep 23", "Oct 12", "Oct 23", "Nov 6", "Nov 20"], "tot": [95, 94, 97, 98, 99, 96], "red": [13, 8, 13, 14, 11, 15], "fin": [6, 3, 7, 8, 7, 11], "dlv": [7, 5, 6, 6, 4, 4], "ud": [4, 0, 6, 6, 5, 7], "amb": [16, 15, 8, 8, 14, 10], "rows": [{"name": "BoxCrush Renewal 2024 - 2025", "cells": ["R", "R", "R", "R", "R", "R"], "reds": 6}, {"name": "Globe Handyman Project (EKS Deployment for Tower 2)", "cells": ["R", "R", "R", "R", "R", "R"], "reds": 6}, {"name": "MPTC App Rebuild/Hypermodernization", "cells": ["R", "R", "R", "R", "R", "R"], "reds": 6}, {"name": "AWS ProServ - GCash Madtech - Data", "cells": ["R", "R", "R", "R", "A", "R"], "reds": 5}, {"name": "AWS ProServe - GCash Madtech - AI", "cells": ["R", "R", "R", "R", "A", "R"], "reds": 5}, {"name": "UD Infosec - Tine Baradero", "cells": ["R", "A", "R", "R", "R", "R"], "reds": 5}, {"name": "UnionDigital Staff Aug - 1 Flutter Developer", "cells": ["R", "A", "R", "R", "R", "R"], "reds": 5}, {"name": "UD Infosec - Baradero (Feb-July)", "cells": ["A", "A", "R", "R", "R", "R"], "reds": 4}, {"name": "Union Digital Staff Aug Renewal - Lery Navarro (NodeJS)", "cells": ["A", "A", "R", "R", "R", "R"], "reds": 4}, {"name": "OKTedi - DMS (two rows since Nov 6)", "cells": ["N", "N", "N", "R", "R", "R"], "reds": 3}, {"name": "SBC ODP Wealth Extension October 2026", "cells": ["N", "N", "N", "R", "R", "R"], "reds": 3}, {"name": "UD - DATA ENGINEERS 2025", "cells": ["G", "G", "R", "R", "X", "R"], "reds": 3}, {"name": "Union Digital Staff Aug Renewal - Constancio Labao (Flutter)", "cells": ["R", "A", "G", "G", "R", "R"], "reds": 3}, {"name": "UD - Data Engr - Jhoven Mercado", "cells": ["A", "A", "G", "G", "G", "R"], "reds": 1}, {"name": "RRHI Cloud Managed Service 2026", "cells": ["R", "A", "R", "R", "A", "A"], "reds": 3}, {"name": "UD- Lery Navarro (May - October)", "cells": ["R", "A", "R", "R", "G", "G"], "reds": 3}, {"name": "GCASH AMP", "cells": ["R", "R", "A", "A", "G", "G"], "reds": 2}, {"name": "Globe EG - Cloud Cruise Service Multicloud 2025 - 2026", "cells": ["G", "R", "G", "X", "X", "X"], "reds": 1}, {"name": "Globe EG - Phil Life DR as a Service", "cells": ["R", "G", "A", "G", "G", "X"], "reds": 1}, {"name": "MPTC - Core Systems Staff Augmentation (4 OS Devs)", "cells": ["R", "X", "X", "X", "X", "X"], "reds": 1}, {"name": "Solaire North Cloud Cruise Managed Services 2025", "cells": ["G", "R", "G", "G", "G", "G"], "reds": 1}, {"name": "World of Fun - (FE) Mobile Loyalty App - SS", "cells": ["N", "N", "R", "A", "G", "X"], "reds": 1}]};
+function stackChart(id,labels,series,totals,sub,maxV){
+  const W=560,H=300,L=34,B=70,T=26,n=labels.length,plotH=H-B-T,bw=56,step=(W-L-10)/n;
+  const sc=v=>v/maxV*plotH;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Poppins, sans-serif">`;
+  for(let g=0;g<=maxV;g+=4){const y=T+plotH-sc(g);s+=`<line x1="${L}" x2="${W-6}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,.15)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" font-weight="600" fill="#000">${g}</text>`;}
+  labels.forEach((lab,i)=>{
+    const x=L+step*i+(step-bw)/2; let y=T+plotH;
+    series.forEach(se=>{const v=se.values[i]; if(v>0){const h=sc(v); y-=h; s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" fill="${se.color}"/>`; if(h>=16) s+=`<text x="${x+bw/2}" y="${y+h/2+4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${v}</text>`;}});
+    s+=`<text x="${x+bw/2}" y="${y-6}" text-anchor="middle" font-size="14" font-weight="800" fill="#000">${totals[i]}</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-B+18}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#000">${lab}</text>`;
+    s+=`<text x="${x+bw/2}" y="${H-B+34}" text-anchor="middle" font-size="10.5" font-weight="600" fill="#000">${sub[i]}</text>`;
+  });
+  s+='</svg>';
+  let lg='<div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:6px;font-size:12px;font-weight:700">';
+  series.forEach(se=>{lg+=`<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:11px;height:11px;border-radius:3px;background:${se.color}"></span>${se.name}</span>`;});
+  document.getElementById(id).innerHTML=s+lg+'</div>';
+}
+(function(){
+  const pct=P4.red.map((r,i)=>(r/P4.tot[i]*100).toFixed(1)+'%');
+  stackChart('chartRed',P4.labels,[{name:'Financial concerns',color:cssVar('--rust'),values:P4.fin},{name:'Delivery concerns',color:cssVar('--red'),values:P4.dlv}],P4.red,pct,16);
+  const other=P4.red.map((r,i)=>r-P4.ud[i]);
+  const share=P4.red.map((r,i)=>Math.round(P4.ud[i]/r*100)+'% UD');
+  stackChart('chartUD',P4.labels,[{name:'UD / Union Digital',color:'#3730a3',values:P4.ud},{name:'All other Red',color:cssVar('--red'),values:other}],P4.red,share,16);
+  const g=document.getElementById('histGrid'); const nm={R:'Red',A:'Amber',G:'OK',N:'–',X:'×'};
+  let html='<div class="hist-head"><span>Project</span>'+P4.labels.map(l=>`<span>${l}</span>`).join('')+'<span>Red in</span></div>';
+  P4.rows.forEach(r=>{html+=`<div class="hist-row"><div class="hist-name">${r.name}</div>`+r.cells.map(c=>`<div class="hcell ${c}">${nm[c]}</div>`).join('')+`<div class="hist-count">${r.reds} / 6</div></div>`;});
+  g.innerHTML=html;
+})();
+</script>
+</body>
+</html>
